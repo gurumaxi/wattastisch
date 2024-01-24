@@ -1,2 +1,347 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+    import Popup from '$lib/components/Popup.svelte';
+    import { onMount, tick } from 'svelte';
+    import { match, endPoints, getMatchScore, swiper, isMatchFinished } from '$lib/store';
+    import confetti from 'canvas-confetti';
+    import { browser } from '$app/environment';
+    // import jQuery from 'jquery';
+
+    let footerScrolledToLeft = true;
+    let showPopup = false;
+
+    $: $match, checkBoard();
+    $: isStroken = (index: number) => $getMatchScore[index] >= $endPoints - 2;
+
+    onMount(() => {
+        // jQuery('.chip').draggable({
+        //     containment: '#board-view',
+        //     revert: true,
+        //     appendTo: 'body',
+        //     helper: (event) => jQuery('<div class="chip">' + event.target.textContent + '</div>'),
+        //     start: function (event, ui) {
+        //         jQuery(this).draggable('option', 'cursorAt', {
+        //             left: Math.floor(ui.helper.width() / 2),
+        //             top: Math.floor(ui.helper.height() / 2),
+        //         });
+        //     },
+        // });
+        // jQuery('.drop-box-half').droppable({
+        //     drop: (event: any, ui) => {
+        //         const points = Number(ui.helper[0].innerText);
+        //         const index = event.target.id === 'drop-box-1' ? 0 : 1;
+        //         ui.helper.remove();
+        //         event.target.classList.remove('drop-over');
+        //         match.addGame(index, points);
+        //         scrollToBottom();
+        //     },
+        // });
+        // jQuery('.drop-box-half').on('dropover', (event) => event.target.classList.add('drop-over'));
+        // jQuery('.drop-box-half').on('dropout', (event) => event.target.classList.remove('drop-over'));
+        // checkBoard();
+    });
+
+    function getHeader(index: number) {
+        return $endPoints.toString().split('')[index];
+    }
+
+    function checkBoard() {
+        // jQuery('.drop-box-half').droppable('option', 'disabled', $isMatchFinished);
+        scrollToBottom();
+        if ($isMatchFinished) {
+            showPopup = true;
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+            });
+        }
+    }
+
+    async function scrollToBottom() {
+        if (!browser) {
+            return;
+        }
+        await tick();
+        const scoreBoxContent = document.querySelector('#score-box-content');
+        scoreBoxContent?.scrollTo({ top: scoreBoxContent.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+
+<div id="board-view" class="view">
+    <header>
+        <div class="header-padding">
+            <button class="icon header-buttons" on:click={() => $swiper?.slideTo(0)}>menu</button>
+            <div id="header-points">{$getMatchScore[0]}-{$getMatchScore[1]}</div>
+            <button
+                class="icon header-buttons special-button"
+                class:shown={$match.length > 0}
+                on:click={() => (showPopup = true)}
+            >
+                more_vert
+            </button>
+        </div>
+    </header>
+    <main>
+        <div class="box" id="game-box">
+            <div id="forst" />
+            <div id="sub-box">
+                <div id="score-box">
+                    <div id="score-box-header">
+                        <div class="box-item">
+                            <div class="half">{getHeader(0)}</div>
+                            <div class="half">{getHeader(1)}</div>
+                        </div>
+                    </div>
+                    <div id="score-box-content">
+                        {#each $match as game}
+                            <div class="box-item">
+                                <div class="half">{game.team === 0 ? game.points : '-'}</div>
+                                <div class="half">{game.team === 1 ? game.points : '-'}</div>
+                            </div>
+                        {/each}
+                    </div>
+                </div>
+                <div id="drop-box">
+                    {#each Array(2) as _, i}
+                        <div class="drop-box-half" id="drop-box-{i + 1}">
+                            <div class="line" hidden={!isStroken(i)} />
+                        </div>
+                        <div id="border{i + 1}" />
+                    {/each}
+                </div>
+            </div>
+        </div>
+        <div id="chips" class="swiper-no-swiping">
+            <div id="chips2" class:moved={!footerScrolledToLeft}>
+                <div class="chip-box">
+                    <div class="chip">2</div>
+                </div>
+                <div class="chip-box">
+                    <div class="chip">3</div>
+                </div>
+                <div class="chip-box">
+                    <div class="chip">4</div>
+                </div>
+                <div class="chip-box">
+                    <div class="chip">5</div>
+                </div>
+                <button class="icon arrow" id="arrow1" on:click={() => (footerScrolledToLeft = false)}>
+                    keyboard_arrow_right
+                </button>
+                <button class="icon arrow" id="arrow2" on:click={() => (footerScrolledToLeft = true)}>
+                    keyboard_arrow_left
+                </button>
+                <div class="chip-box">
+                    <div class="chip">6</div>
+                </div>
+                <div class="chip-box">
+                    <div class="chip">7</div>
+                </div>
+                <div class="chip-box">
+                    <div class="chip">8</div>
+                </div>
+                <div class="chip-box">
+                    <div class="chip">-2</div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+{#if showPopup}
+    <Popup onClose={() => (showPopup = false)} />
+{/if}
+
+<style>
+    header {
+        width: 100%;
+        height: 60px;
+        background-color: var(--color1);
+        color: white;
+    }
+
+    .header-padding {
+        width: 100%;
+        overflow: hidden;
+        margin: auto;
+    }
+
+    .header-buttons {
+        width: 60px;
+        height: 60px;
+        float: left;
+    }
+
+    .special-button {
+        margin-top: -60px;
+        transition: 0.3s;
+    }
+
+    .special-button.shown {
+        margin-top: 0;
+    }
+
+    #header-points {
+        width: calc(100% - 120px);
+        height: 60px;
+        line-height: 70px;
+        font-size: 50px;
+        text-align: center;
+        float: left;
+        font-family: Kalam, cursive;
+    }
+
+    main {
+        padding-bottom: 0 !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #game-box {
+        height: calc(100% - 80px);
+        padding: 0;
+        font-family: Kalam, cursive;
+        position: relative;
+        margin-bottom: 0;
+    }
+
+    #forst {
+        width: 100%;
+        height: 70px;
+        padding-top: 5px;
+        background: url($lib/assets/images/forst.webp) no-repeat center/100px;
+    }
+
+    #sub-box {
+        width: 100%;
+        height: calc(100% - 70px);
+        position: relative;
+        padding: 0 10px 10px;
+    }
+
+    #drop-box {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .drop-box-half {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+    }
+
+    .drop-box-half:first-child {
+        padding-left: 8px;
+    }
+
+    :global(.drop-over) {
+        background-color: #e2e2e2;
+    }
+
+    #border1,
+    .line {
+        width: 10px;
+        height: 100%;
+        background: url($lib/assets/images/border1.png) no-repeat center/cover;
+    }
+
+    #border2 {
+        width: calc(100% - 20px);
+        height: 10px;
+        position: absolute;
+        top: 35px;
+        transition: 0.1s;
+        background: url($lib/assets/images/border2.png) no-repeat center/cover;
+    }
+
+    #score-box {
+        width: calc(100% - 20px);
+        height: calc(100% - 10px);
+        position: absolute;
+        z-index: 600;
+    }
+
+    #score-box-header .box-item {
+        line-height: 48px;
+        font-size: 35px;
+    }
+
+    #score-box-content {
+        height: calc(100% - 40px);
+        padding-top: 10px;
+        overflow-y: auto;
+        transition: 0.3s;
+    }
+
+    .box-item {
+        width: 100%;
+        height: 40px;
+        line-height: 45px;
+        text-align: center;
+        font-size: 30px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .half {
+        width: 50%;
+    }
+
+    #chips {
+        width: 100%;
+        height: 80px;
+    }
+
+    #chips2 {
+        width: 200%;
+        height: 80px;
+        display: flex;
+        flex-direction: row;
+        transition: 0.3s;
+    }
+
+    .chip-box {
+        height: 80px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 3;
+        flex-basis: 0;
+    }
+
+    :global(.chip) {
+        width: 60px;
+        height: 60px;
+        line-height: 64px;
+        text-align: center;
+        position: absolute;
+        background-color: var(--color1) !important;
+        font-size: 45px;
+        color: white;
+        z-index: 4000;
+        border: 3px solid #4b5215;
+        font-family: Kalam, cursive;
+        touch-action: none;
+        user-select: none;
+        border-radius: 10px;
+    }
+
+    .arrow {
+        height: 80px;
+        font-size: 40px;
+        flex-grow: 2;
+        flex-basis: 0;
+        color: gray;
+    }
+
+    .moved {
+        transform: translate3d(-50%, 0px, 0px);
+    }
+</style>

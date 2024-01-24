@@ -1,6 +1,6 @@
 {
     "name": "wattastisch",
-    "version": "1.0.0",
+    "version": "3.0.0",
     "type": "module",
     "private": true,
     "scripts": {
@@ -15,6 +15,8 @@
         "@sveltejs/adapter-auto": "3.1.1",
         "@sveltejs/kit": "2.4.3",
         "@sveltejs/vite-plugin-svelte": "3.0.1",
+        "@types/canvas-confetti": "^1.6.4",
+        "@types/jquery": "3.5.29",
         "@typescript-eslint/eslint-plugin": "6.19.1",
         "@typescript-eslint/parser": "6.19.1",
         "eslint": "8.56.0",
@@ -24,5 +26,13 @@
         "tslib": "2.6.2",
         "typescript": "5.3.3",
         "vite": "5.0.12"
+    },
+    "dependencies": {
+        "canvas-confetti": "1.5.1",
+        "chart.js": "3.7.1",
+        "jquery": "3.7.1",
+        "jquery-ui": "1.13.2",
+        "svelte-i18n": "4.0.0",
+        "swiper": "8.0.6"
     }
 }
