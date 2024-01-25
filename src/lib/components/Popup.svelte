@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { t } from 'svelte-i18n';
+    import { t } from '$lib/stores/language';
     import { match, getMatchScore, isMatchFinished } from '$lib/store';
     import { fade, fly } from 'svelte/transition';
 
@@ -31,8 +31,8 @@
             {!$isMatchFinished
                 ? $t('headerText')
                 : $getMatchScore[0] > $getMatchScore[1]
-                  ? $t('spielFertigSie')
-                  : $t('spielFertigMir')}
+                    ? $t('spielFertigSie')
+                    : $t('spielFertigMir')}
         </div>
         <div class="box-content">
             <button class="box-button" on:click={newGame}>

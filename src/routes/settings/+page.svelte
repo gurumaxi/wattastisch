@@ -1,8 +1,8 @@
 <script lang="ts">
     import Header from '$lib/components/Header.svelte';
-    import { endPoints, language } from '$lib/store';
+    import { endPoints } from '$lib/store';
     import { translations } from '$lib/translations';
-    import { t } from 'svelte-i18n';
+    import { language, t } from '$lib/stores/language';
 
     const availablePoints = [11, 15, 18, 21];
     const availableLanguages = Object.keys(translations);

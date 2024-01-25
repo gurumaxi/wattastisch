@@ -4,7 +4,7 @@
     import { leadingZero } from '$lib/utils';
     import Chart from 'chart.js/auto';
     import { onMount } from 'svelte';
-    import { t } from 'svelte-i18n';
+    import { t } from '$lib/stores/language';
 
     onMount(() => {
         if ($match.length > 0) {

@@ -1,10 +1,11 @@
 <script lang="ts">
     import { swiper } from '$lib/store';
-    import { t } from 'svelte-i18n';
+    import { t } from '$lib/stores/language';
     import { page } from '$app/stores';
     import { browser } from '$app/environment';
+    import type { MenuItem } from '$lib/types';
 
-    const items = [
+    const items: MenuItem[] = [
         { icon: 'assignment', name: 'zumBlock', path: '/' },
         { icon: 'timeline', name: 'statistiken', path: '/stats' },
         { icon: 'settings', name: 'einstellungen', path: '/settings' },
