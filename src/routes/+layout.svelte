@@ -1,14 +1,17 @@
 <script lang="ts">
     import Menu from '$lib/components/Menu.svelte';
-    import { swiper } from '$lib/store';
     import { fade } from 'svelte/transition';
-    import { Swiper, SwiperSlide } from 'swiper/svelte';
-
-    // css
+    import { register } from 'swiper/element/bundle';
+    import { swiper } from '$lib/stores/swiper';
     import '../global.css';
-    import 'swiper/css';
+
+    register();
 
     let showMenuBackground = false;
+
+    function onSwiperInit(event: any) {
+        $swiper = event.detail[0];
+    }
 
     function onSlideChange() {
         showMenuBackground = $swiper?.activeIndex === 0;
@@ -16,27 +19,31 @@
 </script>
 
 <div id="app">
-    <Swiper
-        slidesPerView={'auto'}
-        initialSlide={1}
-        resistanceRatio={0}
-        slideToClickedSlide={true}
-        on:swiper={(e) => ($swiper = e.detail[0])}
-        on:slideChange={onSlideChange}
+    <swiper-container
+        slides-per-view="auto"
+        initial-slide={1}
+        resistance-ratio={0}
+        slide-to-clicked-slide={true}
+        on:swiperprogress={onSwiperInit}
+        on:swiperslidechange={onSlideChange}
     >
-        <SwiperSlide id="menu-slide">
+        <swiper-slide id="menu-slide">
             <Menu />
-        </SwiperSlide>
-        <SwiperSlide>
+        </swiper-slide>
+        <swiper-slide>
             {#if showMenuBackground}
                 <div id="menu-background" transition:fade={{ duration: 150 }} />
             {/if}
             <slot />
-        </SwiperSlide>
-    </Swiper>
+        </swiper-slide>
+    </swiper-container>
 </div>
 
 <style>
+    swiper-container {
+        height: 100%;
+    }
+
     :global(#menu-slide) {
         width: 280px !important;
         z-index: 100;

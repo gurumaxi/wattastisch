@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { swiper } from '$lib/store';
     import { t } from '$lib/stores/language';
     import { page } from '$app/stores';
     import { browser } from '$app/environment';
     import type { MenuItem } from '$lib/types';
+    import { swiper } from '$lib/stores/swiper';
 
     const items: MenuItem[] = [
         { icon: 'assignment', name: 'zumBlock', path: '/' },

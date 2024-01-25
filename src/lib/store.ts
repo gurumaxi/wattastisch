@@ -1,6 +1,5 @@
 import { persistentWritable } from '$lib/utils';
-import { writable, derived } from 'svelte/store';
-import type { Swiper } from 'swiper/types';
+import { derived } from 'svelte/store';
 
 function createMatchStore() {
     const { subscribe, set, update } = persistentWritable('match', []);
@@ -13,7 +12,6 @@ function createMatchStore() {
 }
 
 export const match = createMatchStore();
-export const swiper = writable<Swiper | null>(null);
 export const endPoints = persistentWritable('endPoints', 18);
 
 export const getMatchScore = derived(match, $match => {

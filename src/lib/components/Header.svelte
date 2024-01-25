@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { swiper } from '$lib/store';
+    import { swiper } from '$lib/stores/swiper';
 
     export let text: string;
 </script>
