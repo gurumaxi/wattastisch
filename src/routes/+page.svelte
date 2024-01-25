@@ -21,7 +21,7 @@
     const startingPosition = { x: 0, y: 0 };
 
     const dragOptions: DragOptions = {
-        bounds: '#board-view',
+        bounds: 'main',
         // needed for resetting position on drop
         position: startingPosition,
         disabled: $isMatchFinished,
@@ -43,10 +43,12 @@
                 }
                 const index = box.id === 'drop-box-1' ? 0 : 1;
                 const points = Number(currentNode.innerHTML);
-                dragOptions.position = startingPosition;
                 box.classList.remove(dropBoxHoverClass);
                 match.addGame(index, points);
             }
+
+            // always reset chip position
+            dragOptions.position = startingPosition;
         },
     };
 

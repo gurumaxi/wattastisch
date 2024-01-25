@@ -22,8 +22,7 @@
 
     function newGame() {
         if ($isMatchFinished) {
-            match.reset();
-            onClose();
+            resetMatch();
             return;
         }
         confirmDialog = true;

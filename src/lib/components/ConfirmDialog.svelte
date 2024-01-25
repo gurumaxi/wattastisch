@@ -9,7 +9,7 @@
 <div
     id="dialog-container"
     class="swiper-no-swiping"
-    on:click|self={() => onClose(true)}
+    on:click|self={() => onClose(false)}
     role="presentation"
     transition:fade={{ duration: 150 }}
 >
