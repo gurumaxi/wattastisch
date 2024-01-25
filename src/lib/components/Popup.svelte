@@ -4,6 +4,7 @@
     import { fade, fly } from 'svelte/transition';
     import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
     import { tick } from 'svelte';
+    import { base } from '$app/paths';
 
     export let onClose: () => unknown;
 
@@ -59,7 +60,7 @@
                 <div class="box-button-text">{$t('neuesSpiel')}</div>
             </button>
             {#if $isMatchFinished}
-                <a class="box-button" href="/stats">
+                <a class="box-button" href="{base}/stats">
                     <div class="box-button-icon icon">timeline</div>
                     <div class="box-button-text">{$t('statistiken')}</div>
                 </a>

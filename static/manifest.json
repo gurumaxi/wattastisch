@@ -2,19 +2,19 @@
     "name": "Wattastisch | Wattblock",
     "short_name": "Wattastisch",
     "description": "Wattastisch ist ein digitaler Wattblock, der dir das Notieren von Punkteständen beim Watten erleichtert.",
-    "start_url": "/",
-    "scope": "/",
+    "start_url": "./",
+    "scope": "./",
     "display": "standalone",
     "background_color": "#687122",
     "theme_color": "#687122",
     "icons": [
         {
-            "src": "/pwa/icon-192.png",
+            "src": "./pwa/icon-192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "/pwa/icon-512.png",
+            "src": "./pwa/icon-512.png",
             "type": "image/png",
             "sizes": "512x512"
         },
@@ -27,19 +27,19 @@
     ],
     "screenshots": [
         {
-            "src": "/pwa/screenshot1.png",
+            "src": "./pwa/screenshot1.png",
             "type": "image/png",
             "sizes": "1080x1920",
             "form_factor": "narrow"
         },
         {
-            "src": "/pwa/screenshot2.png",
+            "src": "./pwa/screenshot2.png",
             "type": "image/jpg",
             "sizes": "1080x1920",
             "form_factor": "narrow"
         },
         {
-            "src": "/pwa/screenshot3.png",
+            "src": "./pwa/screenshot3.png",
             "type": "image/jpg",
             "sizes": "1080x1920",
             "form_factor": "narrow"

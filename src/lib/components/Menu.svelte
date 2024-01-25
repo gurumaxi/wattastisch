@@ -4,6 +4,7 @@
     import { browser, version } from '$app/environment';
     import type { MenuItem } from '$lib/types';
     import { swiper } from '$lib/stores/swiper';
+    import { base } from '$app/paths';
 
     const items: MenuItem[] = [
         { icon: 'assignment', name: 'zumBlock', path: '/' },
@@ -29,7 +30,7 @@
         {#each items as item}
             <a
                 class="menu-item"
-                href={item.path}
+                href={base + item.path}
                 on:click={() => $swiper?.slideTo(1)}
                 class:active={$page.url.pathname === item.path}
             >
