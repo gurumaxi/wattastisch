@@ -10,6 +10,12 @@
         onClose();
     }
 
+    function getHeaderText() {
+        if (!$isMatchFinished) return $t('headerText');
+        if ($getMatchScore[0] > $getMatchScore[1]) return $t('spielFertigSie');
+        return $t('spielFertigMir');
+    }
+
     function newGame() {
         const resetMatch = $isMatchFinished ? true : confirm($t('neuesSpielConfirm'));
         if (resetMatch) {
@@ -28,11 +34,7 @@
 >
     <div class="box" transition:fly={{ y: 300, duration: 250 }}>
         <div class="popup-header">
-            {!$isMatchFinished
-                ? $t('headerText')
-                : $getMatchScore[0] > $getMatchScore[1]
-                    ? $t('spielFertigSie')
-                    : $t('spielFertigMir')}
+            {getHeaderText()}
         </div>
         <div class="box-content">
             <button class="box-button" on:click={newGame}>

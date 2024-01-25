@@ -19,7 +19,7 @@
                 labels,
                 datasets: [
                     {
-                        label: 'Mir',
+                        label: $t('mir'),
                         data: data2,
                         backgroundColor: '#36495d',
                         borderColor: '#36495d',
@@ -28,7 +28,7 @@
                         fill: false,
                     },
                     {
-                        label: 'Sie',
+                        label: $t('sie'),
                         data: data1,
                         backgroundColor: '#47b784',
                         borderColor: '#47b784',

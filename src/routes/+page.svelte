@@ -55,11 +55,11 @@
         const rect2 = element2.getBoundingClientRect();
         const overlapX = Math.max(
             0,
-            Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x),
+            Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x)
         );
         const overlapY = Math.max(
             0,
-            Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y),
+            Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y)
         );
         const areaElement1 = rect1.width * rect1.height;
         const areaElement2 = rect2.width * rect2.height;

@@ -19,6 +19,8 @@ export const translations: Record<Language, TranslationKeys> = {
         stats2: 'Runden insgesamt',
         stats3: 'Zeit pro Runde',
         teilenText: 'Hallo, lad auch du dir meine Wattapp, Wattastisch, herunter. Zu finden entweder im Playstore oder unter',
+        sie: 'Sie',
+        mir: 'Wir',
     },
     [Language.UNTERLOND]: {
         zumBlock: 'Zum Wattblock',
@@ -38,6 +40,8 @@ export const translations: Record<Language, TranslationKeys> = {
         stats2: 'Runden insgesomt',
         stats3: 'Zeit pro Runde',
         teilenText: 'Ou du, lod dir a meine Wattapp, Wattastisch, or, isch zu geil. Zu finden entweder im Playstore oder unter',
+        sie: 'Sie',
+        mir: 'Mir',
     },
     [Language.LAIVESOTT]: {
         zumBlock: 'al blocchet de watten',
@@ -57,6 +61,8 @@ export const translations: Record<Language, TranslationKeys> = {
         stats2: 'resocont de le partite',
         stats3: 'temp per partita',
         teilenText: 'Uela, scaricate anca ti la me wattapp, wattastisch. Te la trovi entel Playstore o sotto',
+        sie: 'Loro',
+        mir: 'Noi',
     },
     [Language.PUSTOTOL]: {
         zumBlock: 'Zin Wattblock',
@@ -76,6 +82,8 @@ export const translations: Record<Language, TranslationKeys> = {
         stats2: 'Rundn insgesomt',
         stats3: 'Zeit pro Runde',
         teilenText: 'Ou du, lod dir a meine Wattapp, Wattastisch, ocha, isch zi geil. Zi finden entwedo im Playstore odo unto',
+        sie: 'Sie',
+        mir: 'Mio',
     },
     [Language.TELDRARISCH]: {
         zumBlock: 'Zin Wattblöck',
@@ -95,6 +103,8 @@ export const translations: Record<Language, TranslationKeys> = {
         stats2: 'Runn insgsomp',
         stats3: 'Zeit pro Runde',
         teilenText: 'Hoi, loud a du dio meina Wattapp, Wattastisch, ocha. Man fintse entwedo in Playstore ödo unto',
+        sie: 'Sie',
+        mir: 'Wiu',
     },
     [Language.LADIN]: {
         zumBlock: 'Al bloch de batadù',
@@ -114,5 +124,7 @@ export const translations: Record<Language, TranslationKeys> = {
         stats2: 'Sugades in düt',
         stats3: 'Tëmp por sugada',
         teilenText: 'Ciao, scaricaia ci tö jö mia Wattapp, Wattastisch. Tla ciafes sön l Playstore o sot',
+        sie: 'Sie',
+        mir: 'Mio',
     },
 };

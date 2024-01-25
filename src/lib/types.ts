@@ -25,6 +25,8 @@ export type TranslationKeys = {
     stats2: string;
     stats3: string;
     teilenText: string;
+    sie: string;
+    mir: string;
 };
 
 export type MenuItem = {

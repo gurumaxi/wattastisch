@@ -1,7 +1,7 @@
 <script lang="ts">
     import { t } from '$lib/stores/settings';
     import { page } from '$app/stores';
-    import { browser } from '$app/environment';
+    import { browser, version } from '$app/environment';
     import type { MenuItem } from '$lib/types';
     import { swiper } from '$lib/stores/swiper';
 
@@ -45,7 +45,7 @@
         {/if}
     </div>
     <div id="menu-footer">
-        <div>Version 2.1.0</div>
+        <div>Version {version}</div>
         <div>Maximilian Rialto</div>
         <div>maxrialto98@gmail.com</div>
     </div>
