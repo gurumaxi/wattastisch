@@ -78,6 +78,7 @@ button {
     background-color: unset;
     font-family: unset;
     text-align: unset;
+    font-size: 16px;
 }
 
 select {

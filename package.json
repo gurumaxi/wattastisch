@@ -30,7 +30,7 @@
     "dependencies": {
         "@neodrag/svelte": "2.0.3",
         "canvas-confetti": "1.9.2",
-        "chart.js": "3.7.1",
+        "chart.js": "4.4.1",
         "swiper": "11.0.5"
     }
 }

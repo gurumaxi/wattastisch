@@ -51,10 +51,14 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
+                        x: {
+                            grid: {
+                                lineWidth: 0,
+                            },
+                        },
                         y: {
                             ticks: {
-                                beginAtZero: true,
-                                stepSize: 1,
+                                stepSize: 2,
                             },
                         },
                     },
@@ -63,8 +67,10 @@
                             tension: 0,
                         },
                     },
-                    legend: {
-                        position: 'bottom',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
                     },
                 },
             });
@@ -117,7 +123,7 @@
 
 <style>
     #chart {
-        height: 250px !important;
+        height: 300px !important;
         margin-top: 10px;
     }
 
