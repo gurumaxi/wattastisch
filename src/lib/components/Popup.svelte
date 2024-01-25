@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { t } from '$lib/stores/language';
-    import { match, getMatchScore, isMatchFinished } from '$lib/store';
+    import { t } from '$lib/stores/settings';
+    import { match, getMatchScore, isMatchFinished } from '$lib/stores/match';
     import { fade, fly } from 'svelte/transition';
 
     export let onClose: () => unknown;

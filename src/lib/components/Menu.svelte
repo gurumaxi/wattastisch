@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { t } from '$lib/stores/language';
+    import { t } from '$lib/stores/settings';
     import { page } from '$app/stores';
     import { browser } from '$app/environment';
     import type { MenuItem } from '$lib/types';

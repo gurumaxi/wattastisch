@@ -32,3 +32,11 @@ export type MenuItem = {
     name: keyof TranslationKeys;
     path: string;
 };
+
+export type Match = Win[];
+
+export type Win = {
+    team: 0 | 1;
+    points: number;
+    time: number;
+};
