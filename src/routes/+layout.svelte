@@ -3,11 +3,19 @@
     import { fade } from 'svelte/transition';
     import { register } from 'swiper/element/bundle';
     import { swiper } from '$lib/stores/swiper';
+    import { onMount } from 'svelte';
     import '../global.css';
 
     register();
 
+    onMount(() => {
+        const loadingScreen = document.querySelector('#pre-loading') as HTMLElement;
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => loadingScreen.remove(), 250);
+    });
+
     let showMenuBackground = false;
+
 
     function onSwiperInit(event: any) {
         $swiper = event.detail[0];
