@@ -2,8 +2,12 @@
     import { t } from '$lib/stores/settings';
     import { match, getMatchScore, isMatchFinished } from '$lib/stores/match';
     import { fade, fly } from 'svelte/transition';
+    import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
+    import { tick } from 'svelte';
 
     export let onClose: () => unknown;
+
+    let confirmDialog = false;
 
     function oneBack() {
         match.revertLastGame();
@@ -17,11 +21,25 @@
     }
 
     function newGame() {
-        const resetMatch = $isMatchFinished ? true : confirm($t('neuesSpielConfirm'));
-        if (resetMatch) {
+        if ($isMatchFinished) {
             match.reset();
+            onClose();
+            return;
         }
+        confirmDialog = true;
+    }
+
+    function resetMatch() {
+        match.reset();
         onClose();
+    }
+
+    async function onConfirmDialogClose(accepted: boolean) {
+        confirmDialog = false;
+        if (accepted) {
+            await tick();
+            resetMatch();
+        }
     }
 </script>
 
@@ -55,6 +73,10 @@
         </div>
     </div>
 </div>
+
+{#if confirmDialog}
+    <ConfirmDialog text={$t('neuesSpielConfirm')} onClose={onConfirmDialogClose} />
+{/if}
 
 <style>
     #popup-container {

@@ -27,6 +27,8 @@ export type TranslationKeys = {
     teilenText: string;
     sie: string;
     mir: string;
+    ja: string;
+    nein: string;
 };
 
 export type MenuItem = {

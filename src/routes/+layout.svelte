@@ -16,7 +16,6 @@
 
     let showMenuBackground = false;
 
-
     function onSwiperInit(event: any) {
         $swiper = event.detail[0];
     }

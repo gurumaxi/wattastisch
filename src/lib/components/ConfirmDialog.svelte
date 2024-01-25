@@ -1,0 +1,61 @@
+<script lang="ts">
+    import { t } from '$lib/stores/settings';
+    import { fade, fly } from 'svelte/transition';
+
+    export let text: string;
+    export let onClose: (x: boolean) => unknown;
+</script>
+
+<div
+    id="dialog-container"
+    class="swiper-no-swiping"
+    on:click|self={() => onClose(true)}
+    role="presentation"
+    transition:fade={{ duration: 150 }}
+>
+    <div class="box" transition:fly={{ y: 300, duration: 250 }}>
+        <div class="dialog-header">
+            {text}
+        </div>
+        <div class="box-content">
+            <button class="box-button" on:click={() => onClose(false)}>{$t('nein')}</button>
+            <button class="box-button" on:click={() => onClose(true)}>{$t('ja')}</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    #dialog-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        z-index: 9901;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dialog-header {
+        font-size: 20px;
+        padding: 30px 10px;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .box {
+        width: calc(100% - 50px);
+        max-width: 500px;
+        max-height: calc(100% - 100px);
+    }
+
+    .box-content {
+        padding: 10px;
+        padding-top: 0;
+    }
+
+    .box-button {
+        border-radius: 10px;
+    }
+</style>
