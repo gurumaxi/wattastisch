@@ -5,9 +5,8 @@
     import { Swiper, SwiperSlide } from 'swiper/svelte';
 
     // css
+    import '../global.css';
     import 'swiper/css';
-    import '$lib/style/global.css';
-    import '$lib/style/ui.css';
 
     let showMenuBackground = false;
 
