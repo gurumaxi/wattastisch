@@ -1,52 +1,76 @@
 <script lang="ts">
-    import Popup from '$lib/components/Popup.svelte';
     import { onMount, tick } from 'svelte';
     import { match, endPoints, getMatchScore, swiper, isMatchFinished } from '$lib/store';
+    import Popup from '$lib/components/Popup.svelte';
+    import { draggable, type DragOptions } from '@neodrag/svelte';
     import confetti from 'canvas-confetti';
     import { browser } from '$app/environment';
-    // import jQuery from 'jquery';
+
+    onMount(checkBoardState);
 
     let footerScrolledToLeft = true;
     let showPopup = false;
 
-    $: $match, checkBoard();
+    $: $match, checkBoardState();
     $: isStroken = (index: number) => $getMatchScore[index] >= $endPoints - 2;
 
-    onMount(() => {
-        // jQuery('.chip').draggable({
-        //     containment: '#board-view',
-        //     revert: true,
-        //     appendTo: 'body',
-        //     helper: (event) => jQuery('<div class="chip">' + event.target.textContent + '</div>'),
-        //     start: function (event, ui) {
-        //         jQuery(this).draggable('option', 'cursorAt', {
-        //             left: Math.floor(ui.helper.width() / 2),
-        //             top: Math.floor(ui.helper.height() / 2),
-        //         });
-        //     },
-        // });
-        // jQuery('.drop-box-half').droppable({
-        //     drop: (event: any, ui) => {
-        //         const points = Number(ui.helper[0].innerText);
-        //         const index = event.target.id === 'drop-box-1' ? 0 : 1;
-        //         ui.helper.remove();
-        //         event.target.classList.remove('drop-over');
-        //         match.addGame(index, points);
-        //         scrollToBottom();
-        //     },
-        // });
-        // jQuery('.drop-box-half').on('dropover', (event) => event.target.classList.add('drop-over'));
-        // jQuery('.drop-box-half').on('dropout', (event) => event.target.classList.remove('drop-over'));
-        // checkBoard();
-    });
+    const dropBoxSelector = '.drop-box-half';
+    const dropBoxHoverClass = 'drop-over';
+    const startingPosition = { x: 0, y: 0 };
+
+    const dragOptions: DragOptions = {
+        bounds: '#board-view',
+        // needed for resetting position on drop
+        position: startingPosition,
+        disabled: $isMatchFinished,
+        onDrag: ({ currentNode }) => {
+            const dropBoxes = document.querySelectorAll(dropBoxSelector);
+            for (const box of dropBoxes) {
+                if (areElementsOverlapping(currentNode, box)) {
+                    box.classList.add(dropBoxHoverClass);
+                } else {
+                    box.classList.remove(dropBoxHoverClass);
+                }
+            }
+        },
+        onDragEnd: ({ currentNode }) => {
+            const dropBoxes = document.querySelectorAll(dropBoxSelector);
+            for (const box of dropBoxes) {
+                if (!areElementsOverlapping(currentNode, box)) {
+                    continue;
+                }
+                const index = box.id === 'drop-box-1' ? 0 : 1;
+                const points = Number(currentNode.innerHTML);
+                dragOptions.position = startingPosition;
+                box.classList.remove(dropBoxHoverClass);
+                match.addGame(index, points);
+            }
+        },
+    };
+
+    function areElementsOverlapping(element1: Element, element2: Element): boolean {
+        const rect1 = element1.getBoundingClientRect();
+        const rect2 = element2.getBoundingClientRect();
+        const overlapX = Math.max(
+            0,
+            Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x),
+        );
+        const overlapY = Math.max(
+            0,
+            Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y),
+        );
+        const areaElement1 = rect1.width * rect1.height;
+        const areaElement2 = rect2.width * rect2.height;
+        return overlapX * overlapY > 0.5 * Math.min(areaElement1, areaElement2);
+    }
 
     function getHeader(index: number) {
         return $endPoints.toString().split('')[index];
     }
 
-    function checkBoard() {
-        // jQuery('.drop-box-half').droppable('option', 'disabled', $isMatchFinished);
+    function checkBoardState() {
         scrollToBottom();
+        dragOptions.disabled = $isMatchFinished;
         if ($isMatchFinished) {
             showPopup = true;
             confetti({
@@ -114,16 +138,16 @@
         <div id="chips" class="swiper-no-swiping">
             <div id="chips2" class:moved={!footerScrolledToLeft}>
                 <div class="chip-box">
-                    <div class="chip">2</div>
+                    <div class="chip" use:draggable={dragOptions}>2</div>
                 </div>
                 <div class="chip-box">
-                    <div class="chip">3</div>
+                    <div class="chip" use:draggable={dragOptions}>3</div>
                 </div>
                 <div class="chip-box">
-                    <div class="chip">4</div>
+                    <div class="chip" use:draggable={dragOptions}>4</div>
                 </div>
                 <div class="chip-box">
-                    <div class="chip">5</div>
+                    <div class="chip" use:draggable={dragOptions}>5</div>
                 </div>
                 <button class="icon arrow" id="arrow1" on:click={() => (footerScrolledToLeft = false)}>
                     keyboard_arrow_right
@@ -132,16 +156,16 @@
                     keyboard_arrow_left
                 </button>
                 <div class="chip-box">
-                    <div class="chip">6</div>
+                    <div class="chip" use:draggable={dragOptions}>6</div>
                 </div>
                 <div class="chip-box">
-                    <div class="chip">7</div>
+                    <div class="chip" use:draggable={dragOptions}>7</div>
                 </div>
                 <div class="chip-box">
-                    <div class="chip">8</div>
+                    <div class="chip" use:draggable={dragOptions}>8</div>
                 </div>
                 <div class="chip-box">
-                    <div class="chip">-2</div>
+                    <div class="chip" use:draggable={dragOptions}>-2</div>
                 </div>
             </div>
         </div>
