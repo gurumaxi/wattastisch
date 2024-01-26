@@ -1,13 +1,9 @@
-import { build, files, prerendered, version } from '$service-worker';
-import { precacheAndRoute } from 'workbox-precaching';
+import { registerRoute } from 'workbox-routing';
+import { NetworkFirst } from 'workbox-strategies';
 
-const precacheList = [
-    ...build,
-    ...files,
-    ...prerendered,
-].map(s => ({
-    url: s,
-    revision: version,
-}));
+self.__WB_DISABLE_DEV_LOGS = true;
 
-precacheAndRoute(precacheList);
+registerRoute(
+    ({ url }) => url,
+    new NetworkFirst()
+);
