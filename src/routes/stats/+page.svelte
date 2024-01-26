@@ -68,7 +68,7 @@
     });
 </script>
 
-<div id="stats-view" class="view">
+<div class="view">
     <Header text={$t('statistiken')} />
     {#if $match.length > 0}
         <main>

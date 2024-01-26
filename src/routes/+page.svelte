@@ -57,11 +57,11 @@
         const rect2 = element2.getBoundingClientRect();
         const overlapX = Math.max(
             0,
-            Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x)
+            Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x),
         );
         const overlapY = Math.max(
             0,
-            Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y)
+            Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y),
         );
         const areaElement1 = rect1.width * rect1.height;
         const areaElement2 = rect2.width * rect2.height;
@@ -95,7 +95,7 @@
     }
 </script>
 
-<div id="board-view" class="view">
+<div class="view">
     <header>
         <div class="header-padding">
             <button class="icon header-buttons" on:click={() => $swiper?.slideTo(0)}>menu</button>
@@ -184,7 +184,7 @@
     header {
         width: 100%;
         height: 60px;
-        background-color: var(--color1);
+        background-color: var(--primaryColor);
         color: white;
     }
 
@@ -350,7 +350,7 @@
         line-height: 64px;
         text-align: center;
         position: absolute;
-        background-color: var(--color1) !important;
+        background-color: var(--primaryColor) !important;
         font-size: 45px;
         color: white;
         z-index: 4000;

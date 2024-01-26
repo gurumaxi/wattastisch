@@ -1,6 +1,6 @@
 :root {
-    --color1: #687122;
-    --color2: #f1f1f1;
+    --primaryColor: #687122;
+    --secondaryColor: #f1f1f1;
     --textColor: #343434;
     --backgroundColor: #e5e5e5;
     --fontFamily: Roboto, sans-serif;
@@ -90,7 +90,7 @@ select {
     padding: 0 0 0 10px;
     font-size: 16px;
     color: var(--textColor);
-    background-color: var(--color2);
+    background-color: var(--secondaryColor);
     font-family: var(--fontFamily);
     font-weight: 500;
 }
@@ -162,7 +162,7 @@ select {
 
 .box-button {
     width: calc(50% - 5px);
-    background-color: var(--color2);
+    background-color: var(--secondaryColor);
     text-align: center;
     float: left;
     padding: 10px;

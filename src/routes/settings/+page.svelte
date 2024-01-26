@@ -7,7 +7,7 @@
     const availablePoints = [11, 15, 18, 21];
 </script>
 
-<div id="settings-view" class="view">
+<div class="view">
     <Header text={$t('einstellungen')} />
     <main>
         <div class="box">
@@ -41,11 +41,11 @@
     .box-button {
         width: 25%;
         margin-right: 0;
-        background-color: var(--color2);
+        background-color: var(--secondaryColor);
     }
 
     .active {
-        background-color: var(--color1);
+        background-color: var(--primaryColor);
         color: white;
     }
 </style>

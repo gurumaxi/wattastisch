@@ -15,7 +15,7 @@
     header {
         width: 100%;
         height: 60px;
-        background-color: var(--color1);
+        background-color: var(--primaryColor);
         color: white;
     }
 

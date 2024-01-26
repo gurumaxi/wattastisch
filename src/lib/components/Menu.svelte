@@ -68,7 +68,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: var(--color1);
+        background-color: var(--primaryColor);
         flex-shrink: 0;
     }
 
@@ -101,7 +101,7 @@
         width: 55px;
         height: 55px;
         font-size: 30px;
-        color: var(--color1);
+        color: var(--primaryColor);
     }
 
     .menu-square-label {
@@ -130,6 +130,6 @@
     }
 
     .active {
-        background-color: var(--color2);
+        background-color: var(--secondaryColor);
     }
 </style>
