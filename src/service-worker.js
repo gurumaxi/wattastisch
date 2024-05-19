@@ -1,9 +1,20 @@
-import { registerRoute } from 'workbox-routing';
-import { NetworkFirst } from 'workbox-strategies';
+import { build, files, prerendered, version } from '$service-worker';
+import { precacheAndRoute } from 'workbox-precaching';
 
 self.__WB_DISABLE_DEV_LOGS = true;
 
-registerRoute(
-    ({ url }) => url,
-    new NetworkFirst()
-);
+const precacheList = [
+    ...build,
+    ...files,
+    ...prerendered,
+].map(s => ({
+    url: s,
+    revision: version,
+}));
+
+precacheAndRoute(precacheList);
+
+// Force the new service worker to take control immediately
+self.addEventListener('install', () => {
+    self.skipWaiting();
+});
