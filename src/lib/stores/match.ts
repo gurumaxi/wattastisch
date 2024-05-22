@@ -6,7 +6,7 @@ import { derived, get } from 'svelte/store';
 function createMatchStore() {
     const getNewMatch = () => ({ id: new Date().getTime(), games: [] });
 
-    const { subscribe, set, update } = persistentWritable<Match>('match', getNewMatch());
+    const { subscribe, set, update } = persistentWritable<Match>('match_new', getNewMatch());
 
     return {
         subscribe,
