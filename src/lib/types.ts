@@ -29,6 +29,7 @@ export type TranslationKeys = {
     mir: string;
     ja: string;
     nein: string;
+    vergangenePartien: string;
 };
 
 export type MenuItem = {
@@ -37,7 +38,10 @@ export type MenuItem = {
     path: string;
 };
 
-export type Match = Win[];
+export type Match = {
+    id: number;
+    games: Win[];
+};
 
 export type Win = {
     team: 0 | 1;

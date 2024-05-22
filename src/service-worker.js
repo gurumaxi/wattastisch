@@ -1,6 +1,7 @@
 import { build, files, prerendered, version } from '$service-worker';
 import { precacheAndRoute } from 'workbox-precaching';
 
+// @ts-ignore
 self.__WB_DISABLE_DEV_LOGS = true;
 
 const precacheList = [

@@ -10,9 +10,9 @@ export function persistentWritable<T>(localStorageKey: string, defaultValue: T):
         return writable(defaultValue);
     }
 
-    const localStorageValue = localStorage.getItem('wattastisch_' + localStorageKey);
+    const localStorageValue = localStorage.getItem(localStorageKey);
     const initialValue = localStorageValue ? JSON.parse(localStorageValue) : defaultValue;
     const store = writable(initialValue);
-    store.subscribe(value => localStorage.setItem('wattastisch_' + localStorageKey, JSON.stringify(value)));
+    store.subscribe(value => localStorage.setItem(localStorageKey, JSON.stringify(value)));
     return store;
 }

@@ -23,6 +23,7 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'Wir',
         ja: 'Ja',
         nein: 'Nein',
+        vergangenePartien: 'Vergangene Partien',
     },
     [Language.UNTERLOND]: {
         zumBlock: 'Zum Wattblock',
@@ -46,6 +47,7 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'Mir',
         ja: 'Jo',
         nein: 'Na',
+        vergangenePartien: 'Vergangene Partien',
     },
     [Language.LAIVESOTT]: {
         zumBlock: 'al blocchet de watten',
@@ -69,6 +71,7 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'Noi',
         ja: 'Si',
         nein: 'No',
+        vergangenePartien: 'Vergangene Partien',
     },
     [Language.PUSTOTOL]: {
         zumBlock: 'Zin Wattblock',
@@ -92,6 +95,7 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'Mir',
         ja: 'Jo',
         nein: 'Na',
+        vergangenePartien: 'Vergangene Partien',
     },
     [Language.TELDRARISCH]: {
         zumBlock: 'Zin Wattblöck',
@@ -115,6 +119,7 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'Wiu',
         ja: 'Jo',
         nein: 'Na',
+        vergangenePartien: 'Vergangene Partien',
     },
     [Language.LADIN]: {
         zumBlock: 'Al bloch de batadù',
@@ -138,5 +143,6 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'nos',
         ja: 'ê',
         nein: 'no',
+        vergangenePartien: 'Vergangene Partien',
     },
 };

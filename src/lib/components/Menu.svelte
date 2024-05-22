@@ -9,6 +9,7 @@
     const items: MenuItem[] = [
         { icon: 'assignment', name: 'zumBlock', path: '/' },
         { icon: 'timeline', name: 'statistiken', path: '/stats' },
+        { icon: 'history', name: 'vergangenePartien', path: '/history' },
         { icon: 'settings', name: 'einstellungen', path: '/settings' },
     ];
 
