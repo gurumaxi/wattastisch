@@ -1,8 +1,14 @@
-{
-    "relation": [ "delegate_permission/common.handle_all_urls" ],
-    "target": {
-        "namespace": "android_app",
-        "package_name": "wattastisch.gurumaxi.io",
-        "sha256_cert_fingerprints": [ "71:59:B7:CA:26:99:D0:75:3E:4F:3A:A4:76:C8:FD:D5:66:58:7A:F0:CA:D3:DE:B6:90:C7:78:41:49:1C:4B:63" ]
+[
+    {
+        "relation": [ "delegate_permission/common.handle_all_urls" ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "wattastisch.gurumaxi.io",
+            "sha256_cert_fingerprints":
+            [
+                "5A:08:9B:4E:F9:23:F7:A0:A9:65:B0:25:E1:0E:5E:A0:AD:BE:35:44:B5:73:3B:6C:C4:05:07:68:F8:89:8F:EB",
+                "71:59:B7:CA:26:99:D0:75:3E:4F:3A:A4:76:C8:FD:D5:66:58:7A:F0:CA:D3:DE:B6:90:C7:78:41:49:1C:4B:63"
+            ]
+        }
     }
-}
+]
