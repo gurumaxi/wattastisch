@@ -10,10 +10,16 @@
     <main class:center={!$matchHistory.length}>
         {#each $matchHistory as match}
             {@const score = computeMatchScore(match)}
+            {@const lastGame = match.games[match.games.length - 1]}
             <div class="box">
                 <div class="box-header">
                     <div class="box-header-text">
-                        {new Date(match.games[match.games.length - 1].time).toLocaleDateString()}
+                        {new Date(lastGame.time).toLocaleDateString()}
+                        -
+                        {new Date(lastGame.time).toLocaleTimeString('de-DE', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                        })}
                     </div>
                 </div>
                 <div class="box-content">
@@ -57,5 +63,6 @@
         text-align: center;
         font-family: var(--kalam);
         font-size: 40px;
+        padding: 10px 0;
     }
 </style>
