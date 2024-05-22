@@ -6,15 +6,8 @@ function createHistoryStore() {
 
     return {
         subscribe,
-        addOrUpdateMatch: (match: Match) => {
-            update(history => {
-                const matchIndex = history.findIndex(m => m.id === match.id);
-                if (matchIndex >= 0) {
-                    history[matchIndex] = match;
-                    return history;
-                }
-                return [match, ...history];
-            });
+        addMatch: (match: Match) => {
+            update(history => [match, ...history]);
         },
     };
 }

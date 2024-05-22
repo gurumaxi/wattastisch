@@ -1,4 +1,3 @@
-import { matchHistory } from '$lib/stores/history';
 import { pointGoal } from '$lib/stores/settings';
 import type { Match } from '$lib/types';
 import { leadingZero, persistentWritable } from '$lib/utils';
@@ -13,14 +12,10 @@ function createMatchStore() {
         subscribe,
         reset: () => set(getNewMatch()),
         revertLastGame: () => {
-            update(match => {
-                const updatedMatch: Match = {
-                    id: match.id,
-                    games: match.games.filter((_, index) => index + 1 < match.games.length),
-                };
-                matchHistory.addOrUpdateMatch(updatedMatch);
-                return updatedMatch;
-            });
+            update(match => ({
+                id: match.id,
+                games: match.games.filter((_, index) => index + 1 < match.games.length),
+            }));
         },
         addGame: (teamIndex: 0 | 1, points: number) => {
             update(match => ({
@@ -31,7 +26,6 @@ function createMatchStore() {
                     time: new Date().getTime(),
                 }],
             }));
-            matchHistory.addOrUpdateMatch(get(match));
         },
     };
 }

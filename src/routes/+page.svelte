@@ -7,6 +7,7 @@
     import confetti from 'canvas-confetti';
     import { browser } from '$app/environment';
     import { swiper } from '$lib/stores/swiper';
+    import { matchHistory } from '$lib/stores/history';
 
     onMount(checkBoardState);
 
@@ -91,6 +92,7 @@
                 spread: 70,
                 origin: { y: 0.6 },
             });
+            matchHistory.addMatch($match);
         }
     }
 </script>
