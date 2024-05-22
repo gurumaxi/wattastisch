@@ -2,13 +2,16 @@
     import { swiper } from '$lib/stores/swiper';
 
     export let text: string;
+    export let buttonIcon: string | null = null;
+    export let onButtonClick: () => void = () => null;
 </script>
 
 <header>
-    <div class="header-padding">
-        <button class="icon header-buttons" on:click={() => $swiper?.slideTo(0)}>menu</button>
-        <div id="header-text">{text}</div>
-    </div>
+    <button class="icon header-buttons" on:click={() => $swiper?.slideTo(0)}>menu</button>
+    <div id="header-text">{text}</div>
+    {#if buttonIcon}
+        <button class="icon header-buttons" on:click={onButtonClick}>{buttonIcon}</button>
+    {/if}
 </header>
 
 <style>
@@ -17,26 +20,21 @@
         height: 60px;
         background-color: var(--primaryColor);
         color: white;
-    }
-
-    .header-padding {
-        width: 100%;
-        margin: auto;
-        overflow: hidden;
+        display: flex;
+        justify-content: center;
     }
 
     .header-buttons {
         width: 60px;
         height: 60px;
-        float: left;
+        flex-shrink: 0;
     }
 
     #header-text {
-        width: calc(100% - 60px);
+        width: 100%;
         height: 60px;
         line-height: 60px;
         font-size: 18px;
         font-weight: 500;
-        float: left;
     }
 </style>

@@ -6,7 +6,7 @@
     import { t } from '$lib/stores/settings';
 
     onMount(() => {
-        if (!$match.length) {
+        if (!$match.games.length) {
             return;
         }
 
@@ -70,14 +70,14 @@
 
 <div class="view">
     <Header text={$t('statistiken')} />
-    {#if $match.length > 0}
+    {#if $match.games.length > 0}
         <main>
             <div class="box" id="chart-box">
                 <div class="box-title">{$t('stats1')}</div>
                 <canvas id="chart" />
             </div>
             <div class="box half">
-                <div class="big-number">{$match.length}</div>
+                <div class="big-number">{$match.games.length}</div>
                 <div class="big-number-label">{$t('stats2')}</div>
             </div>
             <div class="box half">

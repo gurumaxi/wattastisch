@@ -7,6 +7,7 @@
     import confetti from 'canvas-confetti';
     import { browser } from '$app/environment';
     import { swiper } from '$lib/stores/swiper';
+    import { matchHistory } from '$lib/stores/history';
 
     onMount(checkBoardState);
 
@@ -57,11 +58,11 @@
         const rect2 = element2.getBoundingClientRect();
         const overlapX = Math.max(
             0,
-            Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x),
+            Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x)
         );
         const overlapY = Math.max(
             0,
-            Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y),
+            Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y)
         );
         const areaElement1 = rect1.width * rect1.height;
         const areaElement2 = rect2.width * rect2.height;
@@ -70,6 +71,15 @@
 
     function getHeader(index: number) {
         return $pointGoal.toString().split('')[index];
+    }
+
+    async function scrollToBottom() {
+        if (!browser) {
+            return;
+        }
+        await tick();
+        const scoreBoxContent = document.querySelector('#score-box-content');
+        scoreBoxContent?.scrollTo({ top: scoreBoxContent.scrollHeight, behavior: 'smooth' });
     }
 
     function checkBoardState() {
@@ -82,16 +92,8 @@
                 spread: 70,
                 origin: { y: 0.6 },
             });
+            matchHistory.addMatch($match);
         }
-    }
-
-    async function scrollToBottom() {
-        if (!browser) {
-            return;
-        }
-        await tick();
-        const scoreBoxContent = document.querySelector('#score-box-content');
-        scoreBoxContent?.scrollTo({ top: scoreBoxContent.scrollHeight, behavior: 'smooth' });
     }
 </script>
 
@@ -102,7 +104,7 @@
             <div id="header-points">{$getMatchScore[0]}-{$getMatchScore[1]}</div>
             <button
                 class="icon header-buttons special-button"
-                class:shown={$match.length > 0}
+                class:shown={$match.games.length > 0}
                 on:click={() => (showPopup = true)}
             >
                 more_vert
@@ -121,7 +123,7 @@
                         </div>
                     </div>
                     <div id="score-box-content">
-                        {#each $match as game}
+                        {#each $match.games as game}
                             <div class="box-item">
                                 <div class="half">{game.team === 0 ? game.points : '-'}</div>
                                 <div class="half">{game.team === 1 ? game.points : '-'}</div>
@@ -216,7 +218,7 @@
         font-size: 50px;
         text-align: center;
         float: left;
-        font-family: Kalam, cursive;
+        font-family: var(--kalam);
     }
 
     main {
@@ -229,7 +231,7 @@
     #game-box {
         height: calc(100% - 80px);
         padding: 0;
-        font-family: Kalam, cursive;
+        font-family: var(--kalam);
         position: relative;
         margin-bottom: 0;
     }
@@ -344,7 +346,7 @@
         flex-basis: 0;
     }
 
-    :global(.chip) {
+    .chip {
         width: 60px;
         height: 60px;
         line-height: 64px;
@@ -355,7 +357,7 @@
         color: white;
         z-index: 4000;
         border: 3px solid #4b5215;
-        font-family: Kalam, cursive;
+        font-family: var(--kalam);
         touch-action: none;
         user-select: none;
         border-radius: 10px;

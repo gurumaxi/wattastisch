@@ -23,6 +23,9 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'Wir',
         ja: 'Ja',
         nein: 'Nein',
+        vergangenePartien: 'Vergangene Partien',
+        noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
+        confirmHistoryDeletion: 'Möchtest du wirklich den gesamten Verlauf löschen?',
     },
     [Language.UNTERLOND]: {
         zumBlock: 'Zum Wattblock',
@@ -46,6 +49,9 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'Mir',
         ja: 'Jo',
         nein: 'Na',
+        vergangenePartien: 'Olte Partien',
+        noHistory: 'Ogschlossene Partien werden do ungezoag.',
+        confirmHistoryDeletion: 'Willsch wirklich in gonzn Verlauf löschn?',
     },
     [Language.LAIVESOTT]: {
         zumBlock: 'al blocchet de watten',
@@ -69,6 +75,9 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'Noi',
         ja: 'Si',
         nein: 'No',
+        vergangenePartien: 'Olte Partien',
+        noHistory: 'Ogschlossene Partien werden do ungezoag.',
+        confirmHistoryDeletion: 'Willsch wirklich in gonzn Verlauf löschn?',
     },
     [Language.PUSTOTOL]: {
         zumBlock: 'Zin Wattblock',
@@ -92,6 +101,9 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'Mir',
         ja: 'Jo',
         nein: 'Na',
+        vergangenePartien: 'Olta Partien',
+        noHistory: 'Fertiga Partein wern do ungizuag.',
+        confirmHistoryDeletion: 'Willsch wirklich in gonzn Volauf löschn?',
     },
     [Language.TELDRARISCH]: {
         zumBlock: 'Zin Wattblöck',
@@ -115,6 +127,9 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'Wiu',
         ja: 'Jo',
         nein: 'Na',
+        vergangenePartien: 'Olta Partien',
+        noHistory: 'Ougschlössna Partien weng dou ohgizoag.',
+        confirmHistoryDeletion: 'Willsche wirklich in gonzn Volaf leschn?',
     },
     [Language.LADIN]: {
         zumBlock: 'Al bloch de batadù',
@@ -138,5 +153,8 @@ export const translations: Record<Language, TranslationKeys> = {
         mir: 'nos',
         ja: 'ê',
         nein: 'no',
+        vergangenePartien: 'Vedles partides',
+        noHistory: 'Partides ruvades gnará mostrades chiló.',
+        confirmHistoryDeletion: 'Oste bagn straiché demez düta la cronologia?',
     },
 };
