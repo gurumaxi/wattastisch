@@ -30,6 +30,7 @@ export type TranslationKeys = {
     ja: string;
     nein: string;
     vergangenePartien: string;
+    noHistory: string;
 };
 
 export type MenuItem = {

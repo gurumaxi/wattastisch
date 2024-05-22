@@ -7,7 +7,7 @@
 
 <div id="history-view" class="view">
     <Header text={$t('vergangenePartien')} />
-    <main>
+    <main class:center={!$matchHistory.length}>
         {#each $matchHistory as match}
             {@const score = computeMatchScore(match)}
             <div class="box">
@@ -21,7 +21,8 @@
                 </div>
             </div>
         {:else}
-            no matches
+            <div class="empty-icon icon">history</div>
+            <div class="empty-text">{$t('noHistory')}</div>
         {/each}
     </main>
 </div>
@@ -29,6 +30,26 @@
 <style>
     main {
         overflow-y: auto;
+    }
+
+    main.center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .empty-icon {
+        color: gray;
+        font-size: 100px;
+        margin-bottom: 10px;
+    }
+
+    .empty-text {
+        width: 80%;
+        font-weight: 500;
+        color: gray;
+        text-align: center;
     }
 
     .score {

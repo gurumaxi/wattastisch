@@ -24,6 +24,7 @@ export const translations: Record<Language, TranslationKeys> = {
         ja: 'Ja',
         nein: 'Nein',
         vergangenePartien: 'Vergangene Partien',
+        noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
     },
     [Language.UNTERLOND]: {
         zumBlock: 'Zum Wattblock',
@@ -48,6 +49,7 @@ export const translations: Record<Language, TranslationKeys> = {
         ja: 'Jo',
         nein: 'Na',
         vergangenePartien: 'Vergangene Partien',
+        noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
     },
     [Language.LAIVESOTT]: {
         zumBlock: 'al blocchet de watten',
@@ -72,6 +74,7 @@ export const translations: Record<Language, TranslationKeys> = {
         ja: 'Si',
         nein: 'No',
         vergangenePartien: 'Vergangene Partien',
+        noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
     },
     [Language.PUSTOTOL]: {
         zumBlock: 'Zin Wattblock',
@@ -96,6 +99,7 @@ export const translations: Record<Language, TranslationKeys> = {
         ja: 'Jo',
         nein: 'Na',
         vergangenePartien: 'Vergangene Partien',
+        noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
     },
     [Language.TELDRARISCH]: {
         zumBlock: 'Zin Wattblöck',
@@ -120,6 +124,7 @@ export const translations: Record<Language, TranslationKeys> = {
         ja: 'Jo',
         nein: 'Na',
         vergangenePartien: 'Vergangene Partien',
+        noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
     },
     [Language.LADIN]: {
         zumBlock: 'Al bloch de batadù',
@@ -144,5 +149,6 @@ export const translations: Record<Language, TranslationKeys> = {
         ja: 'ê',
         nein: 'no',
         vergangenePartien: 'Vergangene Partien',
+        noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
     },
 };
