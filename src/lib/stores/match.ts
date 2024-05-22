@@ -13,10 +13,14 @@ function createMatchStore() {
         subscribe,
         reset: () => set(getNewMatch()),
         revertLastGame: () => {
-            update(match => ({
-                id: match.id,
-                games: match.games.filter((_, index) => index + 1 < match.games.length),
-            }));
+            update(match => {
+                const updatedMatch: Match = {
+                    id: match.id,
+                    games: match.games.filter((_, index) => index + 1 < match.games.length),
+                };
+                matchHistory.addOrUpdateMatch(updatedMatch);
+                return updatedMatch;
+            });
         },
         addGame: (teamIndex: 0 | 1, points: number) => {
             update(match => ({
@@ -27,7 +31,7 @@ function createMatchStore() {
                     time: new Date().getTime(),
                 }],
             }));
-            matchHistory.addMatch(get(match));
+            matchHistory.addOrUpdateMatch(get(match));
         },
     };
 }

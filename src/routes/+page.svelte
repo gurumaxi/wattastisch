@@ -72,6 +72,15 @@
         return $pointGoal.toString().split('')[index];
     }
 
+    async function scrollToBottom() {
+        if (!browser) {
+            return;
+        }
+        await tick();
+        const scoreBoxContent = document.querySelector('#score-box-content');
+        scoreBoxContent?.scrollTo({ top: scoreBoxContent.scrollHeight, behavior: 'smooth' });
+    }
+
     function checkBoardState() {
         scrollToBottom();
         dragOptions.disabled = $isMatchFinished;
@@ -83,15 +92,6 @@
                 origin: { y: 0.6 },
             });
         }
-    }
-
-    async function scrollToBottom() {
-        if (!browser) {
-            return;
-        }
-        await tick();
-        const scoreBoxContent = document.querySelector('#score-box-content');
-        scoreBoxContent?.scrollTo({ top: scoreBoxContent.scrollHeight, behavior: 'smooth' });
     }
 </script>
 
@@ -344,7 +344,7 @@
         flex-basis: 0;
     }
 
-    :global(.chip) {
+    .chip {
         width: 60px;
         height: 60px;
         line-height: 64px;

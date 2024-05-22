@@ -27,6 +27,10 @@
 </div>
 
 <style>
+    main {
+        overflow-y: auto;
+    }
+
     .score {
         width: 100%;
         text-align: center;
