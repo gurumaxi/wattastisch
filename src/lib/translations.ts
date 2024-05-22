@@ -25,6 +25,7 @@ export const translations: Record<Language, TranslationKeys> = {
         nein: 'Nein',
         vergangenePartien: 'Vergangene Partien',
         noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
+        confirmHistoryDeletion: 'Möchtest du wirklich den gesamten Verlauf löschen?',
     },
     [Language.UNTERLOND]: {
         zumBlock: 'Zum Wattblock',
@@ -50,6 +51,7 @@ export const translations: Record<Language, TranslationKeys> = {
         nein: 'Na',
         vergangenePartien: 'Vergangene Partien',
         noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
+        confirmHistoryDeletion: 'Möchtest du wirklich den gesamten Verlauf löschen?',
     },
     [Language.LAIVESOTT]: {
         zumBlock: 'al blocchet de watten',
@@ -75,6 +77,7 @@ export const translations: Record<Language, TranslationKeys> = {
         nein: 'No',
         vergangenePartien: 'Vergangene Partien',
         noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
+        confirmHistoryDeletion: 'Möchtest du wirklich den gesamten Verlauf löschen?',
     },
     [Language.PUSTOTOL]: {
         zumBlock: 'Zin Wattblock',
@@ -100,6 +103,7 @@ export const translations: Record<Language, TranslationKeys> = {
         nein: 'Na',
         vergangenePartien: 'Vergangene Partien',
         noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
+        confirmHistoryDeletion: 'Möchtest du wirklich den gesamten Verlauf löschen?',
     },
     [Language.TELDRARISCH]: {
         zumBlock: 'Zin Wattblöck',
@@ -125,6 +129,7 @@ export const translations: Record<Language, TranslationKeys> = {
         nein: 'Na',
         vergangenePartien: 'Vergangene Partien',
         noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
+        confirmHistoryDeletion: 'Möchtest du wirklich den gesamten Verlauf löschen?',
     },
     [Language.LADIN]: {
         zumBlock: 'Al bloch de batadù',
@@ -150,5 +155,6 @@ export const translations: Record<Language, TranslationKeys> = {
         nein: 'no',
         vergangenePartien: 'Vergangene Partien',
         noHistory: 'Abgeschlossene Partien werden hier angezeigt.',
+        confirmHistoryDeletion: 'Möchtest du wirklich den gesamten Verlauf löschen?',
     },
 };

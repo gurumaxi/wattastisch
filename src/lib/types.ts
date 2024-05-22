@@ -31,6 +31,7 @@ export type TranslationKeys = {
     nein: string;
     vergangenePartien: string;
     noHistory: string;
+    confirmHistoryDeletion: string;
 };
 
 export type MenuItem = {
