@@ -56,10 +56,9 @@ export const averageGameTime = derived(match, $match => {
             }
         }
         result /= counter;
-        return Math.floor(result / 60) + ':' + leadingZero(Math.floor(result % 60));
-    } else {
-        return '-';
+        return `${Math.floor(result / 60)}:${leadingZero(Math.floor(result % 60))}`;
     }
+    return '-';
 });
 
 export function getChartData() {
@@ -78,7 +77,7 @@ export function getChartData() {
             data2.push(data2[data2.length - 1] + game.points);
         }
         const currentDate = new Date(game.time);
-        labels.push(leadingZero(currentDate.getHours()) + ':' + leadingZero(currentDate.getMinutes()));
+        labels.push(`${leadingZero(currentDate.getHours())}:${leadingZero(currentDate.getMinutes())}`);
     }
 
     return {

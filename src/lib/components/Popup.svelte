@@ -1,6 +1,6 @@
 <script lang="ts">
     import { t } from '$lib/stores/settings';
-    import { match, getMatchScore, isMatchFinished } from '$lib/stores/match';
+    import { getMatchScore, isMatchFinished, match } from '$lib/stores/match';
     import { fade, fly } from 'svelte/transition';
     import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
     import { tick } from 'svelte';
@@ -16,8 +16,12 @@
     }
 
     function getHeaderText() {
-        if (!$isMatchFinished) return $t('headerText');
-        if ($getMatchScore[0] > $getMatchScore[1]) return $t('spielFertigSie');
+        if (!$isMatchFinished) {
+            return $t('headerText');
+        }
+        if ($getMatchScore[0] > $getMatchScore[1]) {
+            return $t('spielFertigSie');
+        }
         return $t('spielFertigMir');
     }
 
