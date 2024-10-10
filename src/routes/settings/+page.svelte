@@ -16,7 +16,7 @@
             </div>
             <div class="box-content">
                 {#each availablePoints as item}
-                    <button class="box-button" class:active={$pointGoal === item} on:click={() => ($pointGoal = item)}>
+                    <button class="box-button" class:active={$pointGoal === item} onclick={() => ($pointGoal = item)}>
                         {item}
                     </button>
                 {/each}

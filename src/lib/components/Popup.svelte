@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { self } from 'svelte/legacy';
     import { t } from '$lib/stores/settings';
     import { getMatchScore, isMatchFinished, match } from '$lib/stores/match';
     import { fade, fly } from 'svelte/transition';
@@ -6,9 +7,13 @@
     import { tick } from 'svelte';
     import { base } from '$app/paths';
 
-    export let onClose: () => unknown;
+    interface Props {
+        onClose: () => void;
+    }
 
-    let confirmDialog = false;
+    const { onClose }: Props = $props();
+
+    let confirmDialog = $state(false);
 
     function oneBack() {
         match.revertLastGame();
@@ -28,9 +33,9 @@
     function newGame() {
         if ($isMatchFinished) {
             resetMatch();
-            return;
+        } else {
+            confirmDialog = true;
         }
-        confirmDialog = true;
     }
 
     function resetMatch() {
@@ -50,7 +55,7 @@
 <div
     id="popup-container"
     class="swiper-no-swiping"
-    on:click|self={onClose}
+    onclick={self(onClose)}
     role="presentation"
     transition:fade={{ duration: 150 }}
 >
@@ -59,7 +64,7 @@
             {getHeaderText()}
         </div>
         <div class="box-content">
-            <button class="box-button" on:click={newGame}>
+            <button class="box-button" onclick={newGame}>
                 <div class="box-button-icon icon">note_add</div>
                 <div class="box-button-text">{$t('neuesSpiel')}</div>
             </button>
@@ -69,7 +74,7 @@
                     <div class="box-button-text">{$t('statistiken')}</div>
                 </a>
             {:else}
-                <button class="box-button" on:click={oneBack}>
+                <button class="box-button" onclick={oneBack}>
                     <div class="box-button-icon icon">fast_rewind</div>
                     <div class="box-button-text">{$t('zugZurueck')}</div>
                 </button>

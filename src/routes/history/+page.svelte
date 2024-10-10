@@ -5,7 +5,7 @@
     import { computeMatchScore } from '$lib/stores/match';
     import { t } from '$lib/stores/settings';
 
-    let confirmDialog = false;
+    let confirmDialog = $state(false);
 
     function onConfirmDialogClose(accepted: boolean) {
         confirmDialog = false;

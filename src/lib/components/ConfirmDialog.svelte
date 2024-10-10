@@ -1,25 +1,28 @@
 <script lang="ts">
+    import { self } from 'svelte/legacy';
     import { t } from '$lib/stores/settings';
     import { fade, fly } from 'svelte/transition';
 
-    export let text: string;
-    export let onClose: (x: boolean) => unknown;
+    type Props = {
+        text: string;
+        onClose: (x: boolean) => void;
+    };
+
+    const { text, onClose }: Props = $props();
 </script>
 
 <div
     id="dialog-container"
     class="swiper-no-swiping"
-    on:click|self={() => onClose(false)}
+    onclick={self(() => onClose(false))}
     role="presentation"
     transition:fade={{ duration: 150 }}
 >
     <div class="box" transition:fly={{ y: 300, duration: 250 }}>
-        <div class="dialog-header">
-            {text}
-        </div>
+        <div class="dialog-header">{text}</div>
         <div class="box-content">
-            <button class="box-button" on:click={() => onClose(false)}>{$t('nein')}</button>
-            <button class="box-button" on:click={() => onClose(true)}>{$t('ja')}</button>
+            <button class="box-button" onclick={() => onClose(false)}>{$t('nein')}</button>
+            <button class="box-button" onclick={() => onClose(true)}>{$t('ja')}</button>
         </div>
     </div>
 </div>

@@ -6,6 +6,8 @@
     import { onMount } from 'svelte';
     import '../global.css';
 
+    const { children } = $props();
+
     register();
 
     onMount(() => {
@@ -14,7 +16,7 @@
         setTimeout(() => loadingScreen.remove(), 250);
     });
 
-    let showMenuBackground = false;
+    let showMenuBackground = $state(false);
 
     function onSwiperInit(event: any) {
         $swiper = event.detail[0];
@@ -31,17 +33,17 @@
         initial-slide={1}
         resistance-ratio={0}
         slide-to-clicked-slide={true}
-        on:swiperprogress={onSwiperInit}
-        on:swiperslidechange={onSlideChange}
+        onswiperprogress={onSwiperInit}
+        onswiperslidechange={onSlideChange}
     >
         <swiper-slide id="menu-slide">
             <Menu />
         </swiper-slide>
         <swiper-slide>
             {#if showMenuBackground}
-                <div id="menu-background" transition:fade={{ duration: 150 }} />
+                <div id="menu-background" transition:fade={{ duration: 150 }}></div>
             {/if}
-            <slot />
+            {@render children()}
         </swiper-slide>
     </swiper-container>
 </div>

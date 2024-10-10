@@ -1,16 +1,20 @@
 <script lang="ts">
     import { swiper } from '$lib/stores/swiper';
 
-    export let text: string;
-    export let buttonIcon: string | null = null;
-    export let onButtonClick: () => void = () => null;
+    interface Props {
+        text: string;
+        buttonIcon?: string;
+        onButtonClick?: () => void;
+    }
+
+    const { text, buttonIcon, onButtonClick = () => null }: Props = $props();
 </script>
 
 <header>
-    <button class="icon header-buttons" on:click={() => $swiper?.slideTo(0)}>menu</button>
+    <button class="icon header-buttons" onclick={() => $swiper?.slideTo(0)}>menu</button>
     <div id="header-text">{text}</div>
     {#if buttonIcon}
-        <button class="icon header-buttons" on:click={onButtonClick}>{buttonIcon}</button>
+        <button class="icon header-buttons" onclick={onButtonClick}>{buttonIcon}</button>
     {/if}
 </header>
 

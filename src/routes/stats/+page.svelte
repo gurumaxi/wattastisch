@@ -74,7 +74,7 @@
         <main>
             <div class="box" id="chart-box">
                 <div class="box-title">{$t('stats1')}</div>
-                <canvas id="chart" />
+                <canvas id="chart"></canvas>
             </div>
             <div class="box half">
                 <div class="big-number">{$match.games.length}</div>

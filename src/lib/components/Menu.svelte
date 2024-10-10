@@ -24,7 +24,7 @@
 
 <div id="menu">
     <div id="menu-header">
-        <div id="app-logo" />
+        <div id="app-logo"></div>
         <div id="app-title">Wattastisch</div>
     </div>
     <div id="menu-content">
@@ -32,7 +32,7 @@
             <a
                 class="menu-item"
                 href={base + item.path}
-                on:click={() => $swiper?.slideTo(1)}
+                onclick={() => $swiper?.slideTo(1)}
                 class:active={$page.url.pathname === item.path}
             >
                 <div class="icon menu-square-icon">{item.icon}</div>
@@ -40,7 +40,7 @@
             </a>
         {/each}
         {#if browser && navigator}
-            <button class="menu-item" on:click={shareApp}>
+            <button class="menu-item" onclick={shareApp}>
                 <div class="icon menu-square-icon">share</div>
                 <div class="menu-square-label">{$t('teilen')}</div>
             </button>
@@ -48,8 +48,8 @@
     </div>
     <div id="menu-footer">
         <div>Version {version}</div>
-        <div>Maximilian Rialto</div>
-        <div>maxrialto98@gmail.com</div>
+        <div>Max Rialto</div>
+        <!-- <div>maxrialto98@gmail.com</div> -->
     </div>
 </div>
 
