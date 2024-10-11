@@ -42,11 +42,11 @@ export type MenuItem = {
 
 export type Match = {
     id: number;
-    games: Win[];
+    games: Game[];
 };
 
-export type Win = {
-    team: 0 | 1;
+export type Game = {
+    winningTeam: 0 | 1;
     points: number;
     time: number;
 };

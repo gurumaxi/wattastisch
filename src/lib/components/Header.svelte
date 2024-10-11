@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { swiper } from '$lib/stores/swiper';
+    import { uiStore } from '$lib/stores/swiper.svelte';
 
     interface Props {
         text: string;
@@ -11,7 +11,7 @@
 </script>
 
 <header>
-    <button class="icon header-buttons" onclick={() => $swiper?.slideTo(0)}>menu</button>
+    <button class="icon header-buttons" onclick={() => uiStore.swiper?.slideTo(0)}>menu</button>
     <div id="header-text">{text}</div>
     {#if buttonIcon}
         <button class="icon header-buttons" onclick={onButtonClick}>{buttonIcon}</button>

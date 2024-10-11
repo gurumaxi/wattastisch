@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { t } from '$lib/stores/settings';
+    import { settingsStore } from '$lib/stores/settings.svelte';
     import { page } from '$app/stores';
     import { browser, version } from '$app/environment';
     import type { MenuItem } from '$lib/types';
-    import { swiper } from '$lib/stores/swiper';
+    import { uiStore } from '$lib/stores/swiper.svelte';
     import { base } from '$app/paths';
 
     const items: MenuItem[] = [
@@ -16,7 +16,7 @@
     function shareApp() {
         navigator.share({
             title: 'Wattastisch',
-            text: $t('teilenText'),
+            text: settingsStore.t('teilenText'),
             url: '',
         });
     }
@@ -32,17 +32,17 @@
             <a
                 class="menu-item"
                 href={base + item.path}
-                onclick={() => $swiper?.slideTo(1)}
+                onclick={() => uiStore.swiper?.slideTo(1)}
                 class:active={$page.url.pathname === item.path}
             >
                 <div class="icon menu-square-icon">{item.icon}</div>
-                <div class="menu-square-label">{$t(item.name)}</div>
+                <div class="menu-square-label">{settingsStore.t(item.name)}</div>
             </a>
         {/each}
         {#if browser && navigator}
             <button class="menu-item" onclick={shareApp}>
                 <div class="icon menu-square-icon">share</div>
-                <div class="menu-square-label">{$t('teilen')}</div>
+                <div class="menu-square-label">{settingsStore.t('teilen')}</div>
             </button>
         {/if}
     </div>

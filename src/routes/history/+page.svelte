@@ -1,26 +1,29 @@
 <script lang="ts">
     import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
     import Header from '$lib/components/Header.svelte';
-    import { matchHistory } from '$lib/stores/history';
-    import { computeMatchScore } from '$lib/stores/match';
-    import { t } from '$lib/stores/settings';
+    import { historyStore } from '$lib/stores/history.svelte';
+    import { getScore } from '$lib/stores/match.svelte';
+    import { settingsStore } from '$lib/stores/settings.svelte';
 
     let confirmDialog = $state(false);
 
     function onConfirmDialogClose(accepted: boolean) {
         confirmDialog = false;
         if (accepted) {
-            matchHistory.delete();
+            historyStore.reset();
         }
     }
 </script>
 
 <div id="history-view" class="view">
-    <Header text={$t('vergangenePartien')} buttonIcon="delete" onButtonClick={() => (confirmDialog = true)} />
-    {#if $matchHistory.length}
+    <Header
+        text={settingsStore.t('vergangenePartien')}
+        buttonIcon="delete"
+        onButtonClick={() => (confirmDialog = true)}
+    />
+    {#if historyStore.history.length}
         <main>
-            {#each $matchHistory as match}
-                {@const score = computeMatchScore(match)}
+            {#each historyStore.history as match}
                 {@const lastGame = match.games[match.games.length - 1]}
                 <div class="box">
                     <div class="box-header">
@@ -34,7 +37,7 @@
                         </div>
                     </div>
                     <div class="box-content">
-                        <div class="score">{score[0]} - {score[1]}</div>
+                        <div class="score">{getScore(match, 0)} - {getScore(match, 1)}</div>
                     </div>
                 </div>
             {/each}
@@ -42,13 +45,13 @@
     {:else}
         <main class="center">
             <div class="empty-icon icon">history</div>
-            <div class="empty-text">{$t('noHistory')}</div>
+            <div class="empty-text">{settingsStore.t('noHistory')}</div>
         </main>
     {/if}
 </div>
 
 {#if confirmDialog}
-    <ConfirmDialog text={$t('confirmHistoryDeletion')} onClose={onConfirmDialogClose} />
+    <ConfirmDialog text={settingsStore.t('confirmHistoryDeletion')} onClose={onConfirmDialogClose} />
 {/if}
 
 <style>

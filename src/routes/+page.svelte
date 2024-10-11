@@ -1,14 +1,14 @@
 <script lang="ts">
     import { tick } from 'svelte';
-    import { getMatchScore, isMatchFinished, match } from '$lib/stores/match';
-    import { pointGoal } from '$lib/stores/settings';
+    import { settingsStore } from '$lib/stores/settings.svelte';
     import Popup from '$lib/components/Popup.svelte';
     import { type DragOptions, draggable } from '@neodrag/svelte';
     import confetti from 'canvas-confetti';
     import { browser } from '$app/environment';
-    import { swiper } from '$lib/stores/swiper';
-    import { matchHistory } from '$lib/stores/history';
+    import { uiStore } from '$lib/stores/swiper.svelte';
+    import { historyStore } from '$lib/stores/history.svelte';
     import { areElementsOverlapping } from '$lib/utils';
+    import { matchStore } from '$lib/stores/match.svelte';
 
     const dropBoxSelector = '.drop-box-half';
     const dropBoxHoverClass = 'drop-over';
@@ -21,7 +21,7 @@
         bounds: 'main',
         // needed for resetting position on drop
         position: startingPosition,
-        disabled: $isMatchFinished,
+        disabled: matchStore.isFinished(),
         onDrag: ({ currentNode }) => {
             const dropBoxes = document.querySelectorAll(dropBoxSelector);
             for (const box of dropBoxes) {
@@ -41,7 +41,7 @@
                 const index = box.id === 'drop-box-1' ? 0 : 1;
                 const points = Number(currentNode.innerHTML);
                 box.classList.remove(dropBoxHoverClass);
-                match.addGame(index, points);
+                matchStore.addGame(index, points);
             }
 
             // always reset chip position
@@ -49,16 +49,14 @@
         },
     });
 
-    const isStroken = $derived((index: number) => $getMatchScore[index] >= $pointGoal - 2);
-
     $effect(() => {
-        if ($match) {
+        if (matchStore.match) {
             checkBoardState();
         }
     });
 
     function getHeader(index: number) {
-        return $pointGoal.toString().split('')[index];
+        return settingsStore.pointGoal.toString().split('')[index];
     }
 
     async function scrollToBottom() {
@@ -72,15 +70,15 @@
 
     function checkBoardState() {
         scrollToBottom();
-        dragOptions.disabled = $isMatchFinished;
-        if ($isMatchFinished) {
+        dragOptions.disabled = matchStore.isFinished();
+        if (matchStore.isFinished()) {
             showPopup = true;
             confetti({
                 particleCount: 150,
                 spread: 70,
                 origin: { y: 0.6 },
             });
-            matchHistory.addMatch($match);
+            historyStore.addMatch(matchStore.match);
         }
     }
 </script>
@@ -88,11 +86,11 @@
 <div class="view">
     <header>
         <div class="header-padding">
-            <button class="icon header-buttons" onclick={() => $swiper?.slideTo(0)}>menu</button>
-            <div id="header-points">{$getMatchScore[0]}-{$getMatchScore[1]}</div>
+            <button class="icon header-buttons" onclick={() => uiStore.swiper?.slideTo(0)}>menu</button>
+            <div id="header-points">{matchStore.getScore(0)}-{matchStore.getScore(1)}</div>
             <button
                 class="icon header-buttons special-button"
-                class:shown={$match.games.length > 0}
+                class:shown={matchStore.match.games.length > 0}
                 onclick={() => (showPopup = true)}
             >
                 more_vert
@@ -111,10 +109,10 @@
                         </div>
                     </div>
                     <div id="score-box-content">
-                        {#each $match.games as game}
+                        {#each matchStore.match.games as game}
                             <div class="box-item">
-                                <div class="half">{game.team === 0 ? game.points : '-'}</div>
-                                <div class="half">{game.team === 1 ? game.points : '-'}</div>
+                                <div class="half">{game.winningTeam === 0 ? game.points : '-'}</div>
+                                <div class="half">{game.winningTeam === 1 ? game.points : '-'}</div>
                             </div>
                         {/each}
                     </div>
@@ -122,7 +120,7 @@
                 <div id="drop-box">
                     {#each Array(2) as _, i}
                         <div class="drop-box-half" id="drop-box-{i + 1}">
-                            <div class="line" hidden={!isStroken(i)}></div>
+                            <div class="line" hidden={!matchStore.isTeamStroken(i)}></div>
                         </div>
                         <div id="border{i + 1}"></div>
                     {/each}

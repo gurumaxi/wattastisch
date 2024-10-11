@@ -1,11 +1,11 @@
 <script lang="ts">
     import { self } from 'svelte/legacy';
-    import { t } from '$lib/stores/settings';
-    import { getMatchScore, isMatchFinished, match } from '$lib/stores/match';
     import { fade, fly } from 'svelte/transition';
     import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
     import { tick } from 'svelte';
     import { base } from '$app/paths';
+    import { matchStore } from '$lib/stores/match.svelte';
+    import { settingsStore } from '$lib/stores/settings.svelte';
 
     interface Props {
         onClose: () => void;
@@ -16,22 +16,22 @@
     let confirmDialog = $state(false);
 
     function oneBack() {
-        match.revertLastGame();
+        matchStore.revertLastGame();
         onClose();
     }
 
     function getHeaderText() {
-        if (!$isMatchFinished) {
-            return $t('headerText');
+        if (!matchStore.isFinished()) {
+            return settingsStore.t('headerText');
         }
-        if ($getMatchScore[0] > $getMatchScore[1]) {
-            return $t('spielFertigSie');
+        if (matchStore.getScore(0) > matchStore.getScore(1)) {
+            return settingsStore.t('spielFertigSie');
         }
-        return $t('spielFertigMir');
+        return settingsStore.t('spielFertigMir');
     }
 
     function newGame() {
-        if ($isMatchFinished) {
+        if (matchStore.isFinished()) {
             resetMatch();
         } else {
             confirmDialog = true;
@@ -39,7 +39,7 @@
     }
 
     function resetMatch() {
-        match.reset();
+        matchStore.reset();
         onClose();
     }
 
@@ -66,17 +66,17 @@
         <div class="box-content">
             <button class="box-button" onclick={newGame}>
                 <div class="box-button-icon icon">note_add</div>
-                <div class="box-button-text">{$t('neuesSpiel')}</div>
+                <div class="box-button-text">{settingsStore.t('neuesSpiel')}</div>
             </button>
-            {#if $isMatchFinished}
+            {#if matchStore.isFinished()}
                 <a class="box-button" href="{base}/stats">
                     <div class="box-button-icon icon">timeline</div>
-                    <div class="box-button-text">{$t('statistiken')}</div>
+                    <div class="box-button-text">{settingsStore.t('statistiken')}</div>
                 </a>
             {:else}
                 <button class="box-button" onclick={oneBack}>
                     <div class="box-button-icon icon">fast_rewind</div>
-                    <div class="box-button-text">{$t('zugZurueck')}</div>
+                    <div class="box-button-text">{settingsStore.t('zugZurueck')}</div>
                 </button>
             {/if}
         </div>
@@ -84,7 +84,7 @@
 </div>
 
 {#if confirmDialog}
-    <ConfirmDialog text={$t('neuesSpielConfirm')} onClose={onConfirmDialogClose} />
+    <ConfirmDialog text={settingsStore.t('neuesSpielConfirm')} onClose={onConfirmDialogClose} />
 {/if}
 
 <style>
