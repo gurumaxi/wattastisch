@@ -1,6 +1,6 @@
 <script lang="ts">
     import { self } from 'svelte/legacy';
-    import { settingsStore } from '$lib/stores/settings.svelte';
+    import { t } from '$lib/stores/settings.svelte';
     import { fade, fly } from 'svelte/transition';
 
     type Props = {
@@ -21,8 +21,8 @@
     <div class="box" transition:fly={{ y: 300, duration: 250 }}>
         <div class="dialog-header">{text}</div>
         <div class="box-content">
-            <button class="box-button" onclick={() => onClose(false)}>{settingsStore.t('nein')}</button>
-            <button class="box-button" onclick={() => onClose(true)}>{settingsStore.t('ja')}</button>
+            <button class="box-button" onclick={() => onClose(false)}>{t('nein')}</button>
+            <button class="box-button" onclick={() => onClose(true)}>{t('ja')}</button>
         </div>
     </div>
 </div>

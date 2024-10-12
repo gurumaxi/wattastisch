@@ -31,3 +31,6 @@ class SettingsStore {
 }
 
 export const settingsStore = new SettingsStore();
+
+// import shortcut
+export const t = settingsStore.t;

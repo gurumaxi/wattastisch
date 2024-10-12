@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { settingsStore } from '$lib/stores/settings.svelte';
+    import { t } from '$lib/stores/settings.svelte';
     import { page } from '$app/stores';
     import { browser, version } from '$app/environment';
     import type { MenuItem } from '$lib/types';
@@ -16,7 +16,7 @@
     function shareApp() {
         navigator.share({
             title: 'Wattastisch',
-            text: settingsStore.t('teilenText'),
+            text: t('teilenText'),
             url: '',
         });
     }
@@ -36,20 +36,19 @@
                 class:active={$page.url.pathname === item.path}
             >
                 <div class="icon menu-square-icon">{item.icon}</div>
-                <div class="menu-square-label">{settingsStore.t(item.name)}</div>
+                <div class="menu-square-label">{t(item.name)}</div>
             </a>
         {/each}
         {#if browser && navigator}
             <button class="menu-item" onclick={shareApp}>
                 <div class="icon menu-square-icon">share</div>
-                <div class="menu-square-label">{settingsStore.t('teilen')}</div>
+                <div class="menu-square-label">{t('teilen')}</div>
             </button>
         {/if}
     </div>
     <div id="menu-footer">
         <div>Version {version}</div>
         <div>Max Rialto</div>
-        <!-- <div>maxrialto98@gmail.com</div> -->
     </div>
 </div>
 

@@ -3,7 +3,7 @@
     import Header from '$lib/components/Header.svelte';
     import { historyStore } from '$lib/stores/history.svelte';
     import { getScore } from '$lib/stores/match.svelte';
-    import { settingsStore } from '$lib/stores/settings.svelte';
+    import { t } from '$lib/stores/settings.svelte';
 
     let confirmDialog = $state(false);
 
@@ -17,7 +17,7 @@
 
 <div id="history-view" class="view">
     <Header
-        text={settingsStore.t('vergangenePartien')}
+        text={t('vergangenePartien')}
         buttonIcon="delete"
         onButtonClick={() => (confirmDialog = true)}
     />
@@ -45,13 +45,13 @@
     {:else}
         <main class="center">
             <div class="empty-icon icon">history</div>
-            <div class="empty-text">{settingsStore.t('noHistory')}</div>
+            <div class="empty-text">{t('noHistory')}</div>
         </main>
     {/if}
 </div>
 
 {#if confirmDialog}
-    <ConfirmDialog text={settingsStore.t('confirmHistoryDeletion')} onClose={onConfirmDialogClose} />
+    <ConfirmDialog text={t('confirmHistoryDeletion')} onClose={onConfirmDialogClose} />
 {/if}
 
 <style>

@@ -5,7 +5,7 @@
     import { tick } from 'svelte';
     import { base } from '$app/paths';
     import { matchStore } from '$lib/stores/match.svelte';
-    import { settingsStore } from '$lib/stores/settings.svelte';
+    import { t } from '$lib/stores/settings.svelte';
 
     interface Props {
         onClose: () => void;
@@ -22,12 +22,12 @@
 
     function getHeaderText() {
         if (!matchStore.isFinished()) {
-            return settingsStore.t('headerText');
+            return t('headerText');
         }
         if (matchStore.getScore(0) > matchStore.getScore(1)) {
-            return settingsStore.t('spielFertigSie');
+            return t('spielFertigSie');
         }
-        return settingsStore.t('spielFertigMir');
+        return t('spielFertigMir');
     }
 
     function newGame() {
@@ -66,17 +66,17 @@
         <div class="box-content">
             <button class="box-button" onclick={newGame}>
                 <div class="box-button-icon icon">note_add</div>
-                <div class="box-button-text">{settingsStore.t('neuesSpiel')}</div>
+                <div class="box-button-text">{t('neuesSpiel')}</div>
             </button>
             {#if matchStore.isFinished()}
                 <a class="box-button" href="{base}/stats">
                     <div class="box-button-icon icon">timeline</div>
-                    <div class="box-button-text">{settingsStore.t('statistiken')}</div>
+                    <div class="box-button-text">{t('statistiken')}</div>
                 </a>
             {:else}
                 <button class="box-button" onclick={oneBack}>
                     <div class="box-button-icon icon">fast_rewind</div>
-                    <div class="box-button-text">{settingsStore.t('zugZurueck')}</div>
+                    <div class="box-button-text">{t('zugZurueck')}</div>
                 </button>
             {/if}
         </div>
@@ -84,7 +84,7 @@
 </div>
 
 {#if confirmDialog}
-    <ConfirmDialog text={settingsStore.t('neuesSpielConfirm')} onClose={onConfirmDialogClose} />
+    <ConfirmDialog text={t('neuesSpielConfirm')} onClose={onConfirmDialogClose} />
 {/if}
 
 <style>

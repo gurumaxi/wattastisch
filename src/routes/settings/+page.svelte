@@ -1,17 +1,17 @@
 <script lang="ts">
     import Header from '$lib/components/Header.svelte';
-    import { settingsStore } from '$lib/stores/settings.svelte';
+    import { settingsStore, t } from '$lib/stores/settings.svelte';
     import { Language } from '$lib/types';
 
     const availablePoints = [11, 15, 18, 21];
 </script>
 
 <div class="view">
-    <Header text={settingsStore.t('einstellungen')} />
+    <Header text={t('einstellungen')} />
     <main>
         <div class="box">
             <div class="box-header">
-                <div class="box-header-text">{settingsStore.t('endPunkteZahl')}</div>
+                <div class="box-header-text">{t('endPunkteZahl')}</div>
             </div>
             <div class="box-content">
                 {#each availablePoints as item}
@@ -27,7 +27,7 @@
         </div>
         <div class="box">
             <div class="box-header">
-                <div class="box-header-text">{settingsStore.t('sprache')}</div>
+                <div class="box-header-text">{t('sprache')}</div>
             </div>
             <div class="box-content">
                 <select bind:value={settingsStore.language}>

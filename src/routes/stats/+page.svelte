@@ -2,7 +2,7 @@
     import Header from '$lib/components/Header.svelte';
     import Chart from 'chart.js/auto';
     import { onMount } from 'svelte';
-    import { settingsStore } from '$lib/stores/settings.svelte';
+    import { t } from '$lib/stores/settings.svelte';
     import { matchStore } from '$lib/stores/match.svelte';
 
     onMount(() => {
@@ -19,7 +19,7 @@
                 labels,
                 datasets: [
                     {
-                        label: settingsStore.t('mir'),
+                        label: t('mir'),
                         data: data2,
                         backgroundColor: '#36495d',
                         borderColor: '#36495d',
@@ -28,7 +28,7 @@
                         fill: false,
                     },
                     {
-                        label: settingsStore.t('sie'),
+                        label: t('sie'),
                         data: data1,
                         backgroundColor: '#47b784',
                         borderColor: '#47b784',
@@ -69,26 +69,26 @@
 </script>
 
 <div class="view">
-    <Header text={settingsStore.t('statistiken')} />
+    <Header text={t('statistiken')} />
     {#if matchStore.match.games.length > 0}
         <main>
             <div class="box" id="chart-box">
-                <div class="box-title">{settingsStore.t('stats1')}</div>
+                <div class="box-title">{t('stats1')}</div>
                 <canvas id="chart"></canvas>
             </div>
             <div class="box half">
                 <div class="big-number">{matchStore.match.games.length}</div>
-                <div class="big-number-label">{settingsStore.t('stats2')}</div>
+                <div class="big-number-label">{t('stats2')}</div>
             </div>
             <div class="box half">
                 <div class="big-number">{matchStore.averageGameTime()}</div>
-                <div class="big-number-label">{settingsStore.t('stats3')}</div>
+                <div class="big-number-label">{t('stats3')}</div>
             </div>
         </main>
     {:else}
         <main class="second-main">
             <div class="second-main-icon icon">hourglass_empty</div>
-            <div class="second-main-text">{settingsStore.t('noStats')}</div>
+            <div class="second-main-text">{t('noStats')}</div>
         </main>
     {/if}
 </div>
