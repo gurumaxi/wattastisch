@@ -1,16 +1,16 @@
 <script lang="ts">
     import Header from '$lib/components/Header.svelte';
-    import { match, averageGameTime, getChartData } from '$lib/stores/match';
     import Chart from 'chart.js/auto';
     import { onMount } from 'svelte';
-    import { t } from '$lib/stores/settings';
+    import { t } from '$lib/stores/settings.svelte';
+    import { matchStore } from '$lib/stores/match.svelte';
 
     onMount(() => {
-        if (!$match.games.length) {
+        if (!matchStore.match.games.length) {
             return;
         }
 
-        const { labels, data1, data2 } = getChartData();
+        const { labels, data1, data2 } = matchStore.getChartData();
         const chartElement = document.getElementById('chart') as HTMLCanvasElement;
         const context = chartElement.getContext('2d') as CanvasRenderingContext2D;
         new Chart(context, {
@@ -19,7 +19,7 @@
                 labels,
                 datasets: [
                     {
-                        label: $t('mir'),
+                        label: t('mir'),
                         data: data2,
                         backgroundColor: '#36495d',
                         borderColor: '#36495d',
@@ -28,7 +28,7 @@
                         fill: false,
                     },
                     {
-                        label: $t('sie'),
+                        label: t('sie'),
                         data: data1,
                         backgroundColor: '#47b784',
                         borderColor: '#47b784',
@@ -69,26 +69,26 @@
 </script>
 
 <div class="view">
-    <Header text={$t('statistiken')} />
-    {#if $match.games.length > 0}
+    <Header text={t('statistiken')} />
+    {#if matchStore.match.games.length > 0}
         <main>
             <div class="box" id="chart-box">
-                <div class="box-title">{$t('stats1')}</div>
-                <canvas id="chart" />
+                <div class="box-title">{t('stats1')}</div>
+                <canvas id="chart"></canvas>
             </div>
             <div class="box half">
-                <div class="big-number">{$match.games.length}</div>
-                <div class="big-number-label">{$t('stats2')}</div>
+                <div class="big-number">{matchStore.match.games.length}</div>
+                <div class="big-number-label">{t('stats2')}</div>
             </div>
             <div class="box half">
-                <div class="big-number">{$averageGameTime}</div>
-                <div class="big-number-label">{$t('stats3')}</div>
+                <div class="big-number">{matchStore.averageGameTime()}</div>
+                <div class="big-number-label">{t('stats3')}</div>
             </div>
         </main>
     {:else}
         <main class="second-main">
             <div class="second-main-icon icon">hourglass_empty</div>
-            <div class="second-main-text">{$t('noStats')}</div>
+            <div class="second-main-text">{t('noStats')}</div>
         </main>
     {/if}
 </div>

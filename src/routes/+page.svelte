@@ -1,33 +1,27 @@
 <script lang="ts">
-    import { onMount, tick } from 'svelte';
-    import { getMatchScore, isMatchFinished, match } from '$lib/stores/match';
-    import { pointGoal } from '$lib/stores/settings';
+    import { tick } from 'svelte';
+    import { settingsStore } from '$lib/stores/settings.svelte';
     import Popup from '$lib/components/Popup.svelte';
     import { type DragOptions, draggable } from '@neodrag/svelte';
     import confetti from 'canvas-confetti';
     import { browser } from '$app/environment';
-    import { swiper } from '$lib/stores/swiper';
-    import { matchHistory } from '$lib/stores/history';
-
-    onMount(checkBoardState);
-
-    let footerScrolledToLeft = true;
-    let showPopup = false;
-
-    $: if ($match) {
-        checkBoardState();
-    }
-    $: isStroken = (index: number) => $getMatchScore[index] >= $pointGoal - 2;
+    import { uiStore } from '$lib/stores/swiper.svelte';
+    import { historyStore } from '$lib/stores/history.svelte';
+    import { areElementsOverlapping } from '$lib/utils';
+    import { matchStore } from '$lib/stores/match.svelte';
 
     const dropBoxSelector = '.drop-box-half';
     const dropBoxHoverClass = 'drop-over';
     const startingPosition = { x: 0, y: 0 };
 
-    const dragOptions: DragOptions = {
+    let footerScrolledToLeft = $state(true);
+    let showPopup = $state(false);
+
+    const dragOptions: DragOptions = $state({
         bounds: 'main',
         // needed for resetting position on drop
         position: startingPosition,
-        disabled: $isMatchFinished,
+        disabled: matchStore.isFinished(),
         onDrag: ({ currentNode }) => {
             const dropBoxes = document.querySelectorAll(dropBoxSelector);
             for (const box of dropBoxes) {
@@ -47,32 +41,22 @@
                 const index = box.id === 'drop-box-1' ? 0 : 1;
                 const points = Number(currentNode.innerHTML);
                 box.classList.remove(dropBoxHoverClass);
-                match.addGame(index, points);
+                matchStore.addGame(index, points);
             }
 
             // always reset chip position
             dragOptions.position = startingPosition;
         },
-    };
+    });
 
-    function areElementsOverlapping(element1: Element, element2: Element): boolean {
-        const rect1 = element1.getBoundingClientRect();
-        const rect2 = element2.getBoundingClientRect();
-        const overlapX = Math.max(
-            0,
-            Math.min(rect1.x + rect1.width, rect2.x + rect2.width) - Math.max(rect1.x, rect2.x),
-        );
-        const overlapY = Math.max(
-            0,
-            Math.min(rect1.y + rect1.height, rect2.y + rect2.height) - Math.max(rect1.y, rect2.y),
-        );
-        const areaElement1 = rect1.width * rect1.height;
-        const areaElement2 = rect2.width * rect2.height;
-        return overlapX * overlapY > 0.5 * Math.min(areaElement1, areaElement2);
-    }
+    $effect(() => {
+        if (matchStore.match) {
+            checkBoardState();
+        }
+    });
 
     function getHeader(index: number) {
-        return $pointGoal.toString().split('')[index];
+        return settingsStore.pointGoal.toString().split('')[index];
     }
 
     async function scrollToBottom() {
@@ -86,15 +70,15 @@
 
     function checkBoardState() {
         scrollToBottom();
-        dragOptions.disabled = $isMatchFinished;
-        if ($isMatchFinished) {
+        dragOptions.disabled = matchStore.isFinished();
+        if (matchStore.isFinished()) {
             showPopup = true;
             confetti({
                 particleCount: 150,
                 spread: 70,
                 origin: { y: 0.6 },
             });
-            matchHistory.addMatch($match);
+            historyStore.addMatch(matchStore.match);
         }
     }
 </script>
@@ -102,12 +86,12 @@
 <div class="view">
     <header>
         <div class="header-padding">
-            <button class="icon header-buttons" on:click={() => $swiper?.slideTo(0)}>menu</button>
-            <div id="header-points">{$getMatchScore[0]}-{$getMatchScore[1]}</div>
+            <button class="icon header-buttons" onclick={() => uiStore.swiper?.slideTo(0)}>menu</button>
+            <div id="header-points">{matchStore.getScore(0)}-{matchStore.getScore(1)}</div>
             <button
                 class="icon header-buttons special-button"
-                class:shown={$match.games.length > 0}
-                on:click={() => (showPopup = true)}
+                class:shown={matchStore.match.games.length > 0}
+                onclick={() => (showPopup = true)}
             >
                 more_vert
             </button>
@@ -115,7 +99,7 @@
     </header>
     <main>
         <div class="box" id="game-box">
-            <div id="forst" />
+            <div id="forst"></div>
             <div id="sub-box">
                 <div id="score-box">
                     <div id="score-box-header">
@@ -125,7 +109,7 @@
                         </div>
                     </div>
                     <div id="score-box-content">
-                        {#each $match.games as game}
+                        {#each matchStore.match.games as game}
                             <div class="box-item">
                                 <div class="half">{game.team === 0 ? game.points : '-'}</div>
                                 <div class="half">{game.team === 1 ? game.points : '-'}</div>
@@ -136,9 +120,9 @@
                 <div id="drop-box">
                     {#each Array(2) as _, i}
                         <div class="drop-box-half" id="drop-box-{i + 1}">
-                            <div class="line" hidden={!isStroken(i)} />
+                            <div class="line" hidden={!matchStore.isTeamStroken(i)}></div>
                         </div>
-                        <div id="border{i + 1}" />
+                        <div id="border{i + 1}"></div>
                     {/each}
                 </div>
             </div>
@@ -157,10 +141,10 @@
                 <div class="chip-box">
                     <div class="chip" use:draggable={dragOptions}>5</div>
                 </div>
-                <button class="icon arrow" id="arrow1" on:click={() => (footerScrolledToLeft = false)}>
+                <button class="icon arrow" id="arrow1" onclick={() => (footerScrolledToLeft = false)}>
                     keyboard_arrow_right
                 </button>
-                <button class="icon arrow" id="arrow2" on:click={() => (footerScrolledToLeft = true)}>
+                <button class="icon arrow" id="arrow2" onclick={() => (footerScrolledToLeft = true)}>
                     keyboard_arrow_left
                 </button>
                 <div class="chip-box">

@@ -1,22 +1,25 @@
 <script lang="ts">
     import Header from '$lib/components/Header.svelte';
-    import { pointGoal } from '$lib/stores/settings';
-    import { language, t } from '$lib/stores/settings';
+    import { settingsStore, t } from '$lib/stores/settings.svelte';
     import { Language } from '$lib/types';
 
     const availablePoints = [11, 15, 18, 21];
 </script>
 
 <div class="view">
-    <Header text={$t('einstellungen')} />
+    <Header text={t('einstellungen')} />
     <main>
         <div class="box">
             <div class="box-header">
-                <div class="box-header-text">{$t('endPunkteZahl')}</div>
+                <div class="box-header-text">{t('endPunkteZahl')}</div>
             </div>
             <div class="box-content">
                 {#each availablePoints as item}
-                    <button class="box-button" class:active={$pointGoal === item} on:click={() => ($pointGoal = item)}>
+                    <button
+                        class="box-button"
+                        class:active={settingsStore.pointGoal === item}
+                        onclick={() => (settingsStore.pointGoal = item)}
+                    >
                         {item}
                     </button>
                 {/each}
@@ -24,10 +27,10 @@
         </div>
         <div class="box">
             <div class="box-header">
-                <div class="box-header-text">{$t('sprache')}</div>
+                <div class="box-header-text">{t('sprache')}</div>
             </div>
             <div class="box-content">
-                <select bind:value={$language}>
+                <select bind:value={settingsStore.language}>
                     {#each Object.values(Language) as lang}
                         <option value={lang}>{lang}</option>
                     {/each}
