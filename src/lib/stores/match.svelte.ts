@@ -8,7 +8,7 @@ export function getScore(match: Match, teamIndex: number): number {
     return score[teamIndex];
 }
 
-const MATCH_KEY = 'match';
+const MATCH_KEY = 'match_new';
 
 class MatchStore {
     match = $state(getValueFromLocalStorage<Match>(MATCH_KEY, {
@@ -55,7 +55,7 @@ class MatchStore {
     }
 
     averageGameTime(): string {
-        if (!this.match.games.length) {
+        if (this.match.games.length < 2) {
             return '-';
         }
 
