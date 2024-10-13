@@ -111,8 +111,8 @@
                     <div id="score-box-content">
                         {#each matchStore.match.games as game}
                             <div class="box-item">
-                                <div class="half">{game.winningTeam === 0 ? game.points : '-'}</div>
-                                <div class="half">{game.winningTeam === 1 ? game.points : '-'}</div>
+                                <div class="half">{game.team === 0 ? game.points : '-'}</div>
+                                <div class="half">{game.team === 1 ? game.points : '-'}</div>
                             </div>
                         {/each}
                     </div>

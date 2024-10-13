@@ -4,7 +4,7 @@ import { getValueFromLocalStorage, leadingZero, setValueToLocalStorage } from '$
 
 export function getScore(match: Match, teamIndex: number): number {
     const score = [0, 0];
-    match.games.forEach(game => (score[game.winningTeam] += game.points));
+    match.games.forEach(game => (score[game.team] += game.points));
     return score[teamIndex];
 }
 
@@ -30,7 +30,7 @@ class MatchStore {
 
     addGame(teamIndex: 0 | 1, points: number) {
         this.match.games.push({
-            winningTeam: teamIndex,
+            team: teamIndex,
             points,
             time: new Date().getTime(),
         });
@@ -78,7 +78,7 @@ class MatchStore {
         const data2: number[] = [0];
 
         for (const game of this.match.games) {
-            if (game.winningTeam === 0) {
+            if (game.team === 0) {
                 data1.push(data1[data1.length - 1] + game.points);
                 data2.push(data2[data2.length - 1]);
             } else {

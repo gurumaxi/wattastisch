@@ -46,7 +46,8 @@ export type Match = {
 };
 
 export type Game = {
-    winningTeam: 0 | 1;
+    // winning team
+    team: 0 | 1;
     points: number;
     time: number;
 };
