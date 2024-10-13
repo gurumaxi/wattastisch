@@ -4,7 +4,7 @@ import { getValueFromLocalStorage, setValueToLocalStorage } from '$lib/utils';
 const HISTORY_KEY = 'matchHistory';
 
 class HistoryStore {
-    private _history = $state<Match[]>(getValueFromLocalStorage<Match[]>(HISTORY_KEY, []));
+    private _history = $state(getValueFromLocalStorage<Match[]>(HISTORY_KEY, []));
 
     get history() {
         return this._history;

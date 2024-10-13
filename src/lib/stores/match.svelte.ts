@@ -1,6 +1,6 @@
 import { settingsStore } from '$lib/stores/settings.svelte';
 import type { Match } from '$lib/types';
-import { leadingZero } from '$lib/utils';
+import { getValueFromLocalStorage, leadingZero, setValueToLocalStorage } from '$lib/utils';
 
 export function getScore(match: Match, teamIndex: number): number {
     const score = [0, 0];
@@ -8,17 +8,24 @@ export function getScore(match: Match, teamIndex: number): number {
     return score[teamIndex];
 }
 
+const MATCH_KEY = 'match';
+
 class MatchStore {
-    match = $state<Match>({
+    match = $state(getValueFromLocalStorage<Match>(MATCH_KEY, {
         id: new Date().getTime(),
         games: [],
-    });
+    }));
+
+    storeMatch() {
+        setValueToLocalStorage(MATCH_KEY, this.match);
+    }
 
     reset() {
         this.match = {
             id: new Date().getTime(),
             games: [],
         };
+        this.storeMatch();
     }
 
     addGame(teamIndex: 0 | 1, points: number) {
@@ -27,10 +34,12 @@ class MatchStore {
             points,
             time: new Date().getTime(),
         });
+        this.storeMatch();
     }
 
     revertLastGame() {
         this.match.games = this.match.games.filter((_, index) => index + 1 < this.match.games.length);
+        this.storeMatch();
     }
 
     getScore(teamIndex: number): number {
@@ -45,7 +54,7 @@ class MatchStore {
         return this.getScore(teamIndex) >= settingsStore.pointGoal - 2;
     }
 
-    averageGameTime() {
+    averageGameTime(): string {
         if (!this.match.games.length) {
             return '-';
         }
