@@ -3,22 +3,8 @@
     --secondaryColor: #f1f1f1;
     --textColor: #343434;
     --backgroundColor: #e5e5e5;
-    --fontFamily: Roboto, sans-serif;
+    --fontFamily: system-ui, sans-serif;
     --kalam: Kalam, cursive;
-}
-
-@font-face {
-    font-family: Roboto;
-    font-weight: 400;
-    font-display: block;
-    src: url($lib/assets/fonts/roboto-400.woff);
-}
-
-@font-face {
-    font-family: Roboto;
-    font-weight: 500;
-    font-display: block;
-    src: url($lib/assets/fonts/roboto-500.woff);
 }
 
 @font-face {
