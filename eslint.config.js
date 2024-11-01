@@ -25,7 +25,14 @@ export default [
         },
     },
     {
-        ignores: ['node_modules', 'build', '.svelte-kit', 'dist', 'package-lock.json'],
+        ignores: [
+            'node_modules',
+            'build',
+            '.svelte-kit',
+            'dist',
+            'package-lock.json',
+            '.vercel',
+        ],
     },
     {
         rules: {
